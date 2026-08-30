@@ -21,6 +21,7 @@ highway-env = ">=1.9"
 negotiation = { path = ".", editable = true }
 
 [tasks]
+check-gpu = "python scripts/check_gpu.py"
 train = "python scripts/train.py"
 eval = "python scripts/evaluate.py"
 compare = "python scripts/run_comparison.py"

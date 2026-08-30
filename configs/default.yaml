@@ -4,6 +4,8 @@ variant: stackelberg
 total_steps: 300000
 seed: 0
 device: auto
+# 0 = half the cores. The environment step is the bottleneck, not the network.
+num_workers: 0
 out_dir: runs
 log_every: 5
 eval_every_updates: 0
@@ -11,7 +13,7 @@ final_eval_episodes: 30
 
 mappo:
   horizon: 128
-  num_envs: 16
+  num_envs: 64
   hidden: 128
   lr: 0.0003
   gamma: 0.99
@@ -25,9 +27,12 @@ mappo:
   value_coef: 0.5
   epochs: 8
   num_minibatches: 4
+  batch_size: null
   max_grad_norm: 0.5
   use_value_norm: true
   anneal_lr: true
+  amp: true
+  compile: false
 
 reward:
   progress: 0.30

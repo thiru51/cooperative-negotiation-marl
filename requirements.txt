@@ -1,0 +1,14 @@
+# Plain pip route (install option b in the README). pixi.lock is the exact, reproducible
+# environment; this file is the "I just want a venv" version and floats within the same
+# bounds the project is developed against.
+#
+# On linux-x86_64 the default PyPI torch wheel already bundles CUDA, so `pip install
+# torch` gets you a GPU build with no extra flags. If your driver is too old for it,
+# install torch first from a matching index and then run this file, e.g.
+#   pip install torch --index-url https://download.pytorch.org/whl/cu124
+numpy>=1.26,<2
+torch>=2.2
+gymnasium>=0.29
+highway-env>=1.9
+pyyaml>=6.0
+pytest>=8.0

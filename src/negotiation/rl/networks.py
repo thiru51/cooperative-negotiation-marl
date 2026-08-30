@@ -35,7 +35,11 @@ class Actor(nn.Module):
         self.net = mlp(obs_dim, hidden, n_actions, out_gain=0.01)
 
     def forward(self, obs: torch.Tensor) -> Categorical:
-        return Categorical(logits=self.net(obs))
+        # The matmuls run in whatever dtype autocast picked, but the logits come back to
+        # fp32 before the softmax. Everything downstream -- the log-ratio, the 0.2 clip
+        # test, the entropy bonus -- compares small differences between numbers near 1,
+        # and bf16 carries about three decimal digits, which is not enough for that.
+        return Categorical(logits=self.net(obs).float())
 
     @torch.no_grad()
     def act(self, obs: torch.Tensor, deterministic: bool = False):
@@ -57,7 +61,7 @@ class CentralisedCritic(nn.Module):
         self.net = mlp(state_dim, hidden, 1, out_gain=1.0)
 
     def forward(self, state: torch.Tensor) -> torch.Tensor:
-        return self.net(state).squeeze(-1)
+        return self.net(state).squeeze(-1).float()
 
 
 class ValueNormalizer:

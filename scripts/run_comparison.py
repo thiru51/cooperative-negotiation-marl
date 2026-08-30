@@ -13,8 +13,8 @@ from pathlib import Path
 
 import numpy as np
 
+from negotiation.cli import add_runtime_flags, apply_flags
 from negotiation.evaluation import format_table
-from negotiation.rl.mappo import MAPPOConfig
 from negotiation.training import TrainConfig, train
 
 HEADLINE = ("deadlock_rate", "resolve_rate", "collision_rate",
@@ -36,14 +36,12 @@ def main(argv=None) -> int:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--total-steps", dest="total_steps", type=int, default=200_000)
     p.add_argument("--seeds", type=int, nargs="+", default=[0])
-    p.add_argument("--device", type=str, default="auto")
     p.add_argument("--out-dir", dest="out_dir", type=str, default="runs")
     p.add_argument("--results-dir", dest="results_dir", type=str, default="results")
     p.add_argument("--tag", type=str, default="comparison")
-    p.add_argument("--num-envs", dest="num_envs", type=int, default=16)
-    p.add_argument("--horizon", type=int, default=128)
     p.add_argument("--eval-episodes", dest="eval_episodes", type=int, default=25)
     p.add_argument("--eval-every-updates", dest="eval_every_updates", type=int, default=0)
+    add_runtime_flags(p)
     args = p.parse_args(argv)
 
     results_dir = Path(args.results_dir)
@@ -53,28 +51,27 @@ def main(argv=None) -> int:
     for seed in args.seeds:
         for variant in ("stackelberg", "symmetric"):
             print(f"\n=== {variant}  seed {seed}  {args.total_steps} steps ===", flush=True)
-            cfg = TrainConfig(
+            cfg = apply_flags(TrainConfig(
                 variant=variant,
                 total_steps=args.total_steps,
                 seed=seed,
-                device=args.device,
                 out_dir=args.out_dir,
                 run_name=f"{args.tag}_{variant}_seed{seed}",
                 eval_every_updates=args.eval_every_updates,
                 final_eval_episodes=args.eval_episodes,
-                mappo=MAPPOConfig(num_envs=args.num_envs, horizon=args.horizon),
-            )
+            ), args)
             result = train(cfg)
             all_runs[variant].append(result)
             print()
             print(format_table(result))
 
+    first = all_runs["stackelberg"][0]
     comparison = {
         "tag": args.tag,
         "total_steps_per_run": args.total_steps,
         "seeds": args.seeds,
         "eval_episodes_per_scenario": args.eval_episodes,
-        "mappo": {"num_envs": args.num_envs, "horizon": args.horizon},
+        "perf": first["perf"],
         "summary": {v: summarise(runs) for v, runs in all_runs.items()},
         "runs": all_runs,
     }

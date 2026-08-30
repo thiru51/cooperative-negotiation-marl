@@ -38,7 +38,7 @@ def test_one_update_changes_the_policy_and_stays_finite():
     obs, states = vec.reset()
     for _ in range(cfg.horizon):
         actions, log_probs, values = agent.step_policy(obs, states)
-        obs, states, rewards, dones, truncateds, _, _ = vec.step(actions, reward)
+        obs, states, rewards, dones, truncateds, _, _ = vec.step(actions.cpu().numpy(), reward)
         buffer.add(obs, states, actions, log_probs, values, rewards, dones, truncateds)
 
     buffer.compute_gae(agent.value(states), cfg.gamma, cfg.gae_lambda, agent.value_normalizer)
@@ -61,8 +61,8 @@ def test_checkpoint_roundtrip_preserves_the_policy(tmp_path: Path):
     b.load(path)
 
     obs, states = vec.reset()
-    assert np.array_equal(a.step_policy(obs, states, deterministic=True)[0],
-                          b.step_policy(obs, states, deterministic=True)[0])
+    assert torch.equal(a.step_policy(obs, states, deterministic=True)[0],
+                       b.step_policy(obs, states, deterministic=True)[0])
 
 
 def test_evaluate_returns_one_entry_per_scenario():

@@ -38,7 +38,7 @@ def test_gae_with_zero_values_is_the_discounted_return():
     expected = 0.0
     for t in reversed(range(horizon)):
         expected = rewards[t] + gamma * expected
-        assert buf.advantages[t, 0, 0] == pytest.approx(expected, rel=1e-5)
+        assert float(buf.advantages[t, 0, 0]) == pytest.approx(expected, rel=1e-5)
 
 
 def test_gae_is_zero_when_the_critic_is_exact():
@@ -51,7 +51,7 @@ def test_gae_is_zero_when_the_critic_is_exact():
     buf = _buffer(horizon)
     _fill(buf, rewards, values)
     buf.compute_gae(np.full((1, 1), last_value, dtype=np.float32), gamma, 0.95)
-    assert np.allclose(buf.advantages, 0.0, atol=1e-4)
+    assert torch.allclose(buf.advantages, torch.zeros_like(buf.advantages), atol=1e-4)
 
 
 def test_episode_boundary_cuts_the_bootstrap():
@@ -60,8 +60,8 @@ def test_episode_boundary_cuts_the_bootstrap():
     _fill(buf, [1.0] * horizon, [0.0] * horizon, dones=[0, 0, 1, 0])
     buf.compute_gae(np.zeros((1, 1), dtype=np.float32), gamma, 1.0)
     # Step 2 terminates, so its advantage is just its own reward and nothing after it.
-    assert buf.advantages[2, 0, 0] == pytest.approx(1.0)
-    assert buf.advantages[1, 0, 0] == pytest.approx(1.0 + gamma * 1.0)
+    assert float(buf.advantages[2, 0, 0]) == pytest.approx(1.0)
+    assert float(buf.advantages[1, 0, 0]) == pytest.approx(1.0 + gamma * 1.0)
 
 
 def test_truncation_cuts_the_recursion_like_termination():
@@ -69,14 +69,14 @@ def test_truncation_cuts_the_recursion_like_termination():
     buf = _buffer(horizon)
     _fill(buf, [1.0] * horizon, [0.0] * horizon, truncateds=[0, 0, 1, 0])
     buf.compute_gae(np.zeros((1, 1), dtype=np.float32), gamma, 1.0)
-    assert buf.advantages[2, 0, 0] == pytest.approx(1.0)
+    assert float(buf.advantages[2, 0, 0]) == pytest.approx(1.0)
 
 
 def test_returns_equal_advantages_plus_values():
     buf = _buffer(4)
     _fill(buf, [0.5, -0.2, 1.0, 0.3], [0.1, 0.2, 0.3, 0.4])
     buf.compute_gae(np.zeros((1, 1), dtype=np.float32), 0.99, 0.95)
-    assert np.allclose(buf.returns, buf.advantages + buf.values, atol=1e-6)
+    assert torch.allclose(buf.returns, buf.advantages + buf.values, atol=1e-6)
 
 
 def test_minibatches_cover_every_sample_exactly_once():
@@ -86,6 +86,13 @@ def test_minibatches_cover_every_sample_exactly_once():
     gen = torch.Generator().manual_seed(0)
     sizes = [len(b["actions"]) for b in buf.minibatches(4, gen)]
     assert sum(sizes) == 4 * 3 * 2
+
+
+def test_buffer_lives_on_the_training_device():
+    buf = _buffer()
+    for name in ("obs", "states", "actions", "log_probs", "values", "rewards",
+                 "advantages", "returns"):
+        assert isinstance(getattr(buf, name), torch.Tensor)
 
 
 def test_value_normalizer_roundtrips():

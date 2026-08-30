@@ -60,7 +60,7 @@ def evaluate(policy, reward_model: RewardModel, episodes_per_scenario: int = 20,
 def greedy_policy(mappo, deterministic: bool = True):
     def policy(obs, states):
         actions, _, _ = mappo.step_policy(obs, states, deterministic=deterministic)
-        return actions
+        return actions.cpu().numpy()
     return policy
 
 
