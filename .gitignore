@@ -1,0 +1,39 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+
+# pixi.lock is intentionally NOT ignored -- it is the reproducibility story.
+.pixi/
+.venv/
+venv/
+env/
+
+*.pt
+*.pth
+*.ckpt
+checkpoints/
+# runs/ holds raw training output including checkpoints; results/ holds the small JSON
+# summaries that the README quotes, so those are tracked on purpose.
+runs/
+data/
+logs/
+wandb/
+outputs/
+*.mp4
+*.gif
+
+.env
+.env.*
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+.vscode/
+.idea/
+.DS_Store

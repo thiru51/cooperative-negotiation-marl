@@ -1,0 +1,28 @@
+[workspace]
+name = "cooperative-negotiation-marl"
+version = "0.1.0"
+description = "Deadlock-free cooperative negotiation at unsignalized intersections via MAPPO with online leader/follower inference"
+channels = ["conda-forge", "pytorch", "nvidia"]
+platforms = ["linux-64"]
+
+[dependencies]
+python = "~=3.11.0"
+numpy = ">=1.26,<2"
+scipy = ">=1.11"
+matplotlib = ">=3.8"
+pandas = ">=2.0"
+pytest = ">=8.0"
+pyyaml = ">=6.0"
+
+[pypi-dependencies]
+torch = ">=2.2"
+gymnasium = ">=0.29"
+highway-env = ">=1.9"
+negotiation = { path = ".", editable = true }
+
+[tasks]
+train = "python scripts/train.py"
+eval = "python scripts/evaluate.py"
+compare = "python scripts/run_comparison.py"
+test = "pytest tests -q"
+smoke = "python scripts/smoke_test.py"

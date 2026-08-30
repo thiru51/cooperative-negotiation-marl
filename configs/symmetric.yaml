@@ -1,0 +1,41 @@
+# Control condition. Identical to default.yaml apart from the reward variant -- that is
+# the whole point of the comparison, so do not change anything else here.
+variant: symmetric
+total_steps: 300000
+seed: 0
+device: auto
+out_dir: runs
+log_every: 5
+eval_every_updates: 0
+final_eval_episodes: 30
+
+mappo:
+  horizon: 128
+  num_envs: 16
+  hidden: 128
+  lr: 0.0003
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_ratio: 0.2
+  value_clip: 0.2
+  entropy_coef: 0.02
+  value_coef: 0.5
+  epochs: 8
+  num_minibatches: 4
+  max_grad_norm: 0.5
+  use_value_norm: true
+  anneal_lr: true
+
+reward:
+  progress: 0.30
+  cleared: 5.0
+  collision: 12.0
+  wait: 0.12
+  step: 0.02
+  jerk: 0.004
+  assertive: 0.25
+  # yield_bonus / follower_wait_discount / leader_margin are ignored by SymmetricReward;
+  # they are listed so the two configs diff cleanly on the `variant` line alone.
+  yield_bonus: 0.20
+  follower_wait_discount: 0.20
+  leader_margin: 0.15

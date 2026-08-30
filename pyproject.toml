@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "negotiation"
+version = "0.1.0"
+description = "Deadlock-free cooperative negotiation at unsignalized intersections"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.26,<2",
+    "torch>=2.2",
+    "gymnasium>=0.29",
+    "highway-env>=1.9",
+    "pyyaml>=6.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
