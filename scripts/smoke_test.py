@@ -52,8 +52,12 @@ def check_vec_and_update(dev) -> None:
     started = time.time()
     for _ in range(cfg.horizon):
         actions, log_probs, values = agent.step_policy(obs, states)
-        obs, states, rewards, dones, truncateds, _, finished = vec.step(actions.cpu().numpy())
+        next_obs, next_states, rewards, dones, truncateds, _, finished = \
+            vec.step(actions.cpu().numpy())
+        # A buffer row has to hold the observation its action was chosen from, so store
+        # before advancing, exactly as training.py does.
         buffer.add(obs, states, actions, log_probs, values, rewards, dones, truncateds)
+        obs, states = next_obs, next_states
         finished_all.extend(finished)
         assert np.isfinite(rewards).all()
     sps = cfg.horizon * cfg.num_envs / (time.time() - started)

@@ -38,8 +38,10 @@ def test_one_update_changes_the_policy_and_stays_finite():
     obs, states = vec.reset()
     for _ in range(cfg.horizon):
         actions, log_probs, values = agent.step_policy(obs, states)
-        obs, states, rewards, dones, truncateds, _, _ = vec.step(actions.cpu().numpy(), reward)
+        next_obs, next_states, rewards, dones, truncateds, _, _ = \
+            vec.step(actions.cpu().numpy(), reward)
         buffer.add(obs, states, actions, log_probs, values, rewards, dones, truncateds)
+        obs, states = next_obs, next_states
 
     buffer.compute_gae(agent.value(states), cfg.gamma, cfg.gae_lambda, agent.value_normalizer)
     before = [p.detach().clone() for p in agent.actor.parameters()]
