@@ -506,15 +506,15 @@ python scripts/check_gpu.py
 Real output, from the machine this was developed on (a laptop RTX 4080):
 
 ```
-torch                2.10.0+cu128
-torch cuda build     12.8
+torch                2.13.0+cu130
+torch cuda build     13.0
 cuda available       True
 device count         1
 device name          NVIDIA GeForce RTX 4080 Laptop GPU
 compute capability   8.9
 multiprocessors      58
 total VRAM           11.57 GB
-free VRAM            10.07 GB
+free VRAM            10.04 GB
 bf16 supported       True
 amp dtype chosen     torch.bfloat16
 tf32 matmul          True
@@ -523,8 +523,8 @@ cudnn benchmark      True
 float32 precision    high
 
 matmul benchmark, 4096x4096:
-  fp32 (tf32 on)         21.2 TFLOP/s
-  bf16                   47.3 TFLOP/s
+  fp32 (tf32 on)         21.9 TFLOP/s
+  bf16                   46.4 TFLOP/s
   peak allocated     0.20 GB
 
 GPU looks usable. Next: python scripts/smoke_test.py
@@ -560,7 +560,7 @@ Result on the development machine:
 
 ```
 .......................................................                  [100%]
-55 passed in 33.76s
+55 passed in 31.70s
 ```
 
 55 tests across 8 files. Most of the half-minute is the tests that actually step the
@@ -586,13 +586,13 @@ trajectories exactly.
 python scripts/smoke_test.py
 ```
 
-Output on the development machine, forced onto the CPU, in about five seconds:
+Output on the development machine, six seconds end to end:
 
 ```
-cpu: cpu  amp=off
+cuda: NVIDIA GeForce RTX 4080 Laptop GPU sm_89 11.6GB  amp=bfloat16
 single env ok  obs_dim=19 state_dim=38 outcome=running posteriors=[0.0, 0.746]
-vec+update ok  {'policy_loss': -0.0009, 'value_loss': 0.4516, 'entropy': 1.0985, 'approx_kl': 0.0001, 'clip_frac': 0.0, 'grad_norm': 0.6883}
-  rollout 138 env-steps/s (8 envs, single process), peak VRAM None GB
+vec+update ok  {'policy_loss': -0.0023, 'value_loss': 0.4073, 'entropy': 1.0985, 'approx_kl': 0.0001, 'clip_frac': 0.0, 'grad_norm': 0.9039}
+  rollout 133 env-steps/s (8 envs, single process), peak VRAM 0.017 GB
 worker split ok  4 envs in 2 processes reproduce the single-process rollout
 smoke test passed
 ```
@@ -601,11 +601,14 @@ Reading that: 19 observation features per agent and 38 for the centralised criti
 expected. The two posteriors differ, which means the filters are responding to the two
 cars' different behaviour rather than sitting on the prior. Entropy near 1.0985 is
 `ln(3)` -- a freshly initialised policy over three actions is still uniform, which is
-correct at this point. `peak VRAM None` just means it ran on the CPU.
+correct at this point. Peak VRAM of 17 MB on a 12 GB card is the honest scale of this
+project's GPU appetite.
 
-The `138 env-steps/s` is a real measurement of *this configuration*: 8 environments in a
-single process on the CPU. It is not a training throughput. Training uses 64 environments
-across worker processes, and the two do not scale linearly.
+The `133 env-steps/s` is a real measurement of *this configuration*: 8 environments in a
+single process. It is not a training throughput. Training uses 64 environments across
+worker processes, and the two do not scale linearly. The same check forced onto the CPU with
+`--device cpu` measured 160 env-steps/s -- *faster* than the GPU run, because the time goes
+on CPU physics either way and the GPU only adds transfer overhead at this size.
 
 Options:
 
@@ -687,14 +690,14 @@ six such runs.
 extrapolation from a number that was measured, and it should be read as an order of
 magnitude and nothing finer.
 
-The only measurement that exists is the smoke test's: **138 environment-steps per second**
-with 8 environments in a single CPU process, on the machine described above. Straight
-division puts one 300,000-step run at `300000 / 138`, roughly half an hour, and the full
-three-seed comparison at six times that.
+The only measurement that exists is the smoke test's: **133 environment-steps per second**
+with 8 environments in a single process, on the machine described above. Straight division
+puts one 300,000-step run at `300000 / 133`, roughly forty minutes, and the full three-seed
+comparison at six times that.
 
-Treat that as the pessimistic end. It was measured single-process on the CPU; a real run
-uses 64 environments across several worker processes, and the environment step is the part
-that parallelises. Whether that buys you 4x or 10x depends on your core count, and it has
+Treat that as the pessimistic end. It was measured single-process; a real run uses 64
+environments across several worker processes, and the environment step is the part that
+parallelises. Whether that buys you 4x or 10x depends on your core count, and it has
 not been measured. The point of the number is to tell you this is a "leave it running over
 lunch" job, not a "leave it running over the weekend" one, and to tell you immediately if
 something is badly wrong -- if the first few updates report tens of steps per second, stop

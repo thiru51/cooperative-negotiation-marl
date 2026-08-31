@@ -156,16 +156,25 @@ Nothing here is a crash. These are the things I would want to know about.
 - **`_compute_terms` computes `dt` and discards it** (`_ = dt`). Harmless leftover; the
   jerk normalisation moved into `IntentVehicle.step`.
 
-- **The pixi environment has been rebuilt from the lockfile and verified.**
-  `pixi install --locked` was run to completion. The resulting environment gives
-  torch 2.13.0+cu130 with `torch.cuda.is_available()` true on an RTX 4080 Laptop, and
-  all 55 tests pass in it in 33 s. An earlier pass had been done in a plain venv from
-  `requirements.txt` on CPU-only PyTorch, so both install paths are now known to work
-  and the lockfile is safe to lean on for a reproducibility claim.
+- **Both install paths work.** `pixi install --locked` was run to completion from the
+  lockfile; the resulting environment is torch 2.13.0+cu130 with CUDA available on an
+  RTX 4080 Laptop, and the suite passes in it (55 passed in 31.70 s). The same suite also
+  passes in a plain venv built from `requirements.txt` on CPU-only PyTorch. Be warned that
+  the first pixi install is slow -- the best part of an hour on a home connection, with no
+  output until it finishes.
 
 - **The GPU path has been checked, but not the GPU training path.** `scripts/check_gpu.py`
-  reports a working CUDA device with bfloat16 on the development machine. Nothing has been
-  trained on it.
+  reports a working CUDA device with bfloat16, and the smoke test passes on it. Nothing has
+  been *trained* on it.
+
+- **On the smoke test's small configuration, the CPU beat the GPU.** 160 environment-steps
+  per second with `--device cpu` against 133 on the RTX 4080, and peak VRAM of 17 MB. That
+  is the CPU-bound story turning up as a measurement rather than an argument: the rollout is
+  highway-env physics plus two 256-particle filters, and at 8 environments the GPU only adds
+  transfer overhead. Whether it pays for itself at the training config's 64 environments is
+  an open question that `perf.json` will answer on the first real run. If it does not,
+  `--device cpu` with more workers may simply be the better setup, and that is worth writing
+  down when you find out.
 
 - **No physical testbed exists** and none is planned for v1. See `END_GOAL.md`.
 

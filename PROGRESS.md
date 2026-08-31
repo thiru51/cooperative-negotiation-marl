@@ -62,7 +62,9 @@ no results exist.
 - [x] `pixi.toml` + `pixi.lock` for a reproducible environment
 - [x] `requirements.txt` for a plain venv
 - [x] Dockerfile
-- [x] 55 tests across 8 files, all passing
+- [x] 55 tests across 8 files, all passing, in both install environments
+- [x] Both install paths exercised: `pixi install --locked` from the lockfile, and a
+      plain venv from `requirements.txt`
 - [x] README, HANDOFF, END_GOAL, this file
 
 ## Not done
