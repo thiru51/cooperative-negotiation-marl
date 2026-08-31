@@ -39,8 +39,9 @@ def _straight_road():
 
 
 def test_arc_lengths_are_cumulative_distances():
+    # Distance along the polyline, not straight to the end: 3 across, then 4 up, so 7.
     pts = np.array([[0.0, 0.0], [3.0, 0.0], [3.0, 4.0]])
-    assert np.allclose(arc_lengths(pts), [0.0, 3.0, 8.0])
+    assert np.allclose(arc_lengths(pts), [0.0, 3.0, 7.0])
 
 
 def test_projection_recovers_arc_length_on_a_straight_route():

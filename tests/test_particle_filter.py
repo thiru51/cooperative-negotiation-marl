@@ -59,8 +59,9 @@ def test_ctrv_arc_is_continuous_as_the_turn_rate_vanishes():
     args = (np.zeros(1), np.zeros(1), np.zeros(1), np.full(1, 6.0))
     tiny = ctrv_step(*args, np.full(1, 1e-5), 0.2)
     small = ctrv_step(*args, np.full(1, 1e-3), 0.2)
-    assert abs(float(tiny[0]) - float(small[0])) < 1e-3
-    assert abs(float(tiny[1]) - float(small[1])) < 1e-3
+    # Index into the length-1 arrays: float() on an array is deprecated in numpy.
+    assert abs(float(tiny[0][0]) - float(small[0][0])) < 1e-3
+    assert abs(float(tiny[1][0]) - float(small[1][0])) < 1e-3
 
 
 def test_yielding_target_speed_never_exceeds_the_assertive_one():
