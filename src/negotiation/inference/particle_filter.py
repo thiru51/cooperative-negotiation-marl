@@ -151,7 +151,11 @@ class IntentionParticleFilter:
     def posterior_assertive(self) -> float:
         if not self._initialised:
             return float(self.cfg.prior_assertive)
-        return float(np.sum(self.weights()[self.state.hypothesis == ASSERTIVE]))
+        p = float(np.sum(self.weights()[self.state.hypothesis == ASSERTIVE]))
+        # The weights are normalised in log space, so the sum can land a few ulps outside
+        # [0, 1]. This number goes straight into the observation and into the leader rule
+        # as a probability, so clamp it rather than let a 1.0000000000000002 through.
+        return min(max(p, 0.0), 1.0)
 
     def entropy(self) -> float:
         p = self.posterior_assertive()
