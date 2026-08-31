@@ -156,12 +156,12 @@ Nothing here is a crash. These are the things I would want to know about.
 - **`_compute_terms` computes `dt` and discards it** (`_ = dt`). Harmless leftover; the
   jerk normalisation moved into `IntentVehicle.step`.
 
-- **The pixi environment has not been rebuilt from the lockfile recently.** The last full
-  verification pass -- all modules importing, 55 tests passing, the smoke test end to end --
-  was done in a plain venv built from `requirements.txt`, on CPU-only PyTorch. `pixi.lock`
-  itself has not changed, so there is no reason to expect it to fail, but nobody has watched
-  `pixi install --locked` finish on a clean machine lately. Worth confirming before you
-  depend on it for a reproducibility claim.
+- **The pixi environment has been rebuilt from the lockfile and verified.**
+  `pixi install --locked` was run to completion. The resulting environment gives
+  torch 2.13.0+cu130 with `torch.cuda.is_available()` true on an RTX 4080 Laptop, and
+  all 55 tests pass in it in 33 s. An earlier pass had been done in a plain venv from
+  `requirements.txt` on CPU-only PyTorch, so both install paths are now known to work
+  and the lockfile is safe to lean on for a reproducibility claim.
 
 - **The GPU path has been checked, but not the GPU training path.** `scripts/check_gpu.py`
   reports a working CUDA device with bfloat16 on the development machine. Nothing has been
