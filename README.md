@@ -779,10 +779,12 @@ Other flags:
 
 ### The honest version first
 
-A bigger GPU will buy you very little here. The rollout buffer at the default config holds
-`128 x 64 x 2` rows of 19-float observations and 38-float states; that is about four
-megabytes of VRAM. The networks are two 128-unit hidden layers. Nothing about this project
-stresses a modern GPU.
+A bigger GPU will buy you very little here. Work out the rollout buffer at the default
+config: `horizon x num_envs x agents = 128 x 64 x 2 = 16,384` rows, each holding a
+19-float observation, a 38-float state, and about eight more floats for actions, log
+probabilities, values, rewards, advantages and returns. At 4 bytes a float that is
+`16384 x 65 x 4`, roughly four megabytes. The networks are two 128-unit hidden layers.
+Nothing about this project stresses a modern GPU.
 
 What actually limits throughput is the environment step: highway-env physics plus two
 256-particle filters, per environment, on the CPU. So the knob that matters is **worker
