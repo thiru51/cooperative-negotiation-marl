@@ -3,8 +3,15 @@
 State of the project as of the last commit. Boxes are ticked only for things that exist and
 have been run. Nothing here is ticked on the strength of intending to do it.
 
-**Summary: the code is done, the experiment is not.** No training run has been executed and
-no results exist.
+**Summary: the code is done and the first experiment has been run.** 6 runs (2 reward
+variants x 3 seeds, 300,000 steps each) completed on 2 Sep 2026. Results are in
+[RESULTS.md](RESULTS.md) and `results/`.
+
+**The headline result is negative.** The symmetric baseline deadlocked in 0.000 of
+evaluation episodes, so the wait-wait deadlock the Stackelberg reward exists to break did
+not occur, and the central claim is unsupported by this run. The Stackelberg variant
+resolves more on average (0.203 vs 0.125) and faster (12.5 s vs 20.2 s), but that rests on
+one seed of three and costs an 8.8% collision rate against the baseline's zero.
 
 ## Done
 

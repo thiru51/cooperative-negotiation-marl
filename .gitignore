@@ -37,3 +37,6 @@ htmlcov/
 .vscode/
 .idea/
 .DS_Store
+
+# scratch copies of configs made while sweeping hyperparameters
+*.yaml.v1bak

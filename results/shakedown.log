@@ -1,0 +1,62 @@
+
+=== stackelberg  seed 0  20000 steps ===
+cuda: NVIDIA GeForce RTX 4080 Laptop GPU sm_89 11.6GB  amp=bfloat16  envs=64 workers=16
+u   1 steps=    8192 sps=  847 r= -0.0104 ent=1.092 kl=0.0064 resolve=0.08 deadlock=0.00 coll=0.44 ttr=19.28
+u   2 steps=   16384 sps=  854 r=  0.0037 ent=1.079 kl=0.0022 resolve=0.07 deadlock=0.00 coll=0.39 ttr=19.06
+
+--------------------------------------------------------------
+device        cuda:0 (NVIDIA GeForce RTX 4080 Laptop GPU), amp torch.bfloat16
+env steps     16384 in 19.9 s
+throughput    824.4 env-steps/s  (rollout 95%, update 5%)
+peak VRAM     0.031 GB allocated / 0.049 GB reserved
+--------------------------------------------------------------
+
+scenario            resolve  deadlock  collide  ttr_mean    jerk
+----------------------------------------------------------------
+offset_small           0.00      0.00     0.72       n/a    0.68
+sym_slow               0.00      0.00     0.00       n/a    1.10
+sym_fast               0.00      0.00     0.00       n/a    1.12
+offset_large           0.00      0.00     0.00       n/a    0.88
+speed_mismatch         0.00      0.00     0.00       n/a    0.97
+sym_mid_arms12         0.00      0.00     0.00       n/a    1.19
+sym_mid_arms23         0.00      0.00     0.00       n/a    1.21
+offset_reversed        0.00      0.00     0.00       n/a    1.34
+----------------------------------------------------------------
+OVERALL                0.00      0.00     0.09       n/a    1.06
+
+=== symmetric  seed 0  20000 steps ===
+cuda: NVIDIA GeForce RTX 4080 Laptop GPU sm_89 11.6GB  amp=bfloat16  envs=64 workers=16
+u   1 steps=    8192 sps=  901 r= -0.0564 ent=1.092 kl=0.0063 resolve=0.08 deadlock=0.00 coll=0.44 ttr=19.28
+u   2 steps=   16384 sps=  891 r= -0.0512 ent=1.079 kl=0.0023 resolve=0.06 deadlock=0.00 coll=0.41 ttr=19.075
+
+--------------------------------------------------------------
+device        cuda:0 (NVIDIA GeForce RTX 4080 Laptop GPU), amp torch.bfloat16
+env steps     16384 in 19.1 s
+throughput    859.7 env-steps/s  (rollout 95%, update 5%)
+peak VRAM     0.031 GB allocated / 0.049 GB reserved
+--------------------------------------------------------------
+
+scenario            resolve  deadlock  collide  ttr_mean    jerk
+----------------------------------------------------------------
+offset_small           0.00      0.00     1.00       n/a    0.54
+offset_large           0.00      0.00     1.00       n/a    0.54
+sym_fast               0.00      0.00     1.00       n/a    0.52
+sym_slow               0.00      0.00     0.00       n/a    0.50
+speed_mismatch         0.00      0.00     0.00       n/a    0.41
+sym_mid_arms12         0.00      0.00     0.00       n/a    0.50
+sym_mid_arms23         0.00      0.00     0.00       n/a    0.50
+offset_reversed        0.00      0.00     0.00       n/a    0.85
+----------------------------------------------------------------
+OVERALL                0.00      0.00     0.38       n/a    0.54
+
+====================================================================
+metric                       stackelberg     symmetric         delta
+--------------------------------------------------------------------
+deadlock_rate                      0.000         0.000        +0.000
+resolve_rate                       0.000         0.000        +0.000
+collision_rate                     0.090         0.375        -0.285
+time_to_resolve_mean                 n/a           n/a           n/a
+mean_speed                         4.473         2.133        +2.340
+mean_jerk                          1.061         0.543        +0.518
+====================================================================
+wrote results/shakedown.json

@@ -19,13 +19,24 @@ Read this before anything else.
 - The test suite passes: 55 tests, 8 files.
 - The smoke test passes end to end, including the check that splitting the environments
   across worker processes reproduces the single-process trajectories exactly.
-- **No training run has been executed yet.**
-- **No performance numbers exist.** There are no results in this repo, no plots, no tables,
-  no claims about deadlock rates. Nothing in this README quotes a number from a training
-  run, because there has not been one.
+- **The first experiment has been run.** 6 runs, 300,000 steps each, 2 reward variants
+  x 3 seeds, on an RTX 4080 Laptop at 886.7 env-steps/s. Full write-up in
+  [RESULTS.md](RESULTS.md); raw output in `results/`.
+- **The headline result is negative, and it is stated plainly.** The symmetric baseline
+  was supposed to collapse into a wait-wait deadlock. It deadlocked in 0.000 of evaluation
+  episodes. There was no deadlock to break, so the central claim of this project is so far
+  unsupported by its own experiment.
+- The Stackelberg variant does resolve more often on average (0.203 vs 0.125) and much
+  faster when it resolves (12.5 s vs 20.2 s), but that average rests on **one seed out of
+  three** -- the other two never resolve a single episode -- and it collides in 8.8% of
+  episodes where the symmetric baseline collides in none. One seed in three is not an
+  effect.
 
-The point of the repo in its current state is that it is *ready* to train. Section
-[Training](#training-not-yet-run) has the exact commands, clearly marked as not yet run.
+The cause is understood. Policy entropy collapses from 1.09 to about 0.08; resolve rate
+peaks at 0.40 around update 13 and then degrades as the policy over-commits to never
+colliding and simply creeps until the timeout. A second run with `entropy_coef` raised
+from 0.02 to 0.05 in both variants is the next step. [RESULTS.md](RESULTS.md) has the
+entropy trace, the per-seed breakdown, and the scripted-policy anchors that fix the scale.
 
 ---
 
@@ -40,7 +51,7 @@ The point of the repo in its current state is that it is *ready* to train. Secti
 - [Check the GPU](#check-the-gpu)
 - [Run the tests](#run-the-tests)
 - [Smoke test](#smoke-test)
-- [Training (not yet run)](#training-not-yet-run)
+- [Training and results](#training-and-results)
 - [Evaluating a checkpoint](#evaluating-a-checkpoint)
 - [Tuning for your machine](#tuning-for-your-machine)
 - [Troubleshooting](#troubleshooting)
@@ -621,10 +632,12 @@ Run this before every training job. If the worker-split check fails, every numbe
 with worker processes is measuring a different experiment from the single-process one, and
 the run is worthless.
 
-## Training (not yet run)
+## Training and results
 
-**None of the commands in this section have been run. There are no results. Every number
-below is a configuration setting or an arithmetic consequence of one, not a measurement.**
+**These commands have now been run.** The measured outcome is in [RESULTS.md](RESULTS.md)
+and the raw JSON is in `results/`. The headline is negative: the symmetric baseline never
+deadlocked, so the deadlock-breaking premise is untested. Read RESULTS.md before quoting
+anything from this section.
 
 ### The Stackelberg run
 

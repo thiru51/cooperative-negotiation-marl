@@ -1,0 +1,15 @@
+policy=always-go
+scenario            resolve  deadlock  collide  ttr_mean    jerk
+----------------------------------------------------------------
+offset_small           0.00      0.00     1.00       n/a    1.15
+offset_large           0.00      0.00     1.00       n/a    1.15
+sym_fast               0.00      0.00     1.00       n/a    0.16
+sym_mid_arms12         0.00      0.00     1.00       n/a    1.07
+sym_mid_arms23         0.00      0.00     1.00       n/a    1.07
+sym_slow               0.00      0.00     1.00       n/a    1.03
+speed_mismatch         0.00      0.00     1.00       n/a    0.65
+offset_reversed        1.00      0.00     0.00      6.80    0.88
+----------------------------------------------------------------
+OVERALL                0.12      0.00     0.88      6.80    0.90
+
+wrote results/anchor_always-go.json

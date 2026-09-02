@@ -1,0 +1,15 @@
+policy=random
+scenario            resolve  deadlock  collide  ttr_mean    jerk
+----------------------------------------------------------------
+offset_small           0.00      0.00     0.50       n/a   16.65
+sym_slow               0.00      0.00     0.25       n/a   16.54
+sym_fast               0.10      0.00     0.50     20.00   17.03
+offset_large           0.05      0.00     0.35     20.00   16.56
+speed_mismatch         0.00      0.00     0.25       n/a   16.77
+sym_mid_arms12         0.00      0.00     0.45       n/a   16.97
+sym_mid_arms23         0.05      0.00     0.35     19.20   16.67
+offset_reversed        0.05      0.00     0.25     19.40   16.97
+----------------------------------------------------------------
+OVERALL                0.03      0.00     0.36     19.72   16.77
+
+wrote results/anchor_random.json

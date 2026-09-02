@@ -23,7 +23,7 @@ mappo:
   # Higher than a typical single-agent PPO run on purpose. With only three actions and a
   # reward whose good region is narrow, the policy collapses onto one intent within a few
   # updates unless exploration is held open.
-  entropy_coef: 0.02
+  entropy_coef: 0.05
   value_coef: 0.5
   epochs: 8
   num_minibatches: 4

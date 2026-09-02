@@ -5,10 +5,17 @@ This file is about the state of the code and the decisions behind it.
 
 ## Where things stand
 
-The code is finished and tested. The experiment has not been run. There are no results,
-no checkpoints, no plots. Everything below about training is a plan, not a report.
+The code is finished and tested, and the first experiment has been run: 6 runs, 300,000
+steps each, 2 reward variants x 3 seeds. Numbers are in [RESULTS.md](RESULTS.md), raw JSON
+in `results/`.
 
-The single most useful thing you can do next is [start the runs](#what-to-run-first).
+The result is negative and worth knowing before you touch anything. The symmetric baseline
+never deadlocked (0.000), so there was no deadlock to break. Policy entropy collapses from
+1.09 to about 0.08; resolve peaks at 0.40 around update 13 and then falls to 0.07 as the
+policy over-commits to never colliding and creeps until the timeout.
+
+The single most useful thing you can do next is settle whether that is an exploration
+problem or a premise problem -- see [known issues](#known-issues-and-open-items).
 
 ## What is implemented
 
@@ -122,10 +129,27 @@ The two things to look for early:
 
 Nothing here is a crash. These are the things I would want to know about.
 
-- **The whole experiment is unrun.** Every claim in the README about what the symmetric
-  baseline does is an argument, not an observation. It is entirely possible the baseline does
-  not deadlock as cleanly as predicted, in which case there is no effect to demonstrate and
-  the premise needs revisiting. This is the main risk and it can only be settled by running it.
+- **The premise did not reproduce, and this is now the main open question.** The README
+  argued the symmetric baseline would collapse into wait-wait deadlock. It did not: 0.000
+  deadlock rate across all three seeds. The scripted `always-yield` anchor deadlocks 1.000
+  of the time, so the environment and the metric both work -- a *learned* symmetric policy
+  simply does not land there. It learns to creep instead, which dodges collision, dodges the
+  strict deadlock test (that needs the agent stalled for the final two seconds) and resolves
+  nothing. Either the deadlock claim needs restating as a claim about *timeouts* rather than
+  stalls, or the reward needs to make creeping unattractive. Do not repeat the old framing
+  until this is settled.
+
+- **Entropy collapse is the proximate cause and is only half-fixed.** `entropy_coef` was
+  0.02 for the v1 run. Resolve rate peaks at 0.40 around update 13 with entropy at 0.29,
+  then degrades monotonically to 0.07 as entropy reaches 0.08. A v2 run with `entropy_coef`
+  at 0.05 in **both** configs is the immediate next step. The v1 setting was
+  `entropy_coef: 0.02` in both `configs/default.yaml` and `configs/symmetric.yaml`; recover
+  it from git history if you need to reproduce v1 exactly. If 0.05 is still not enough, the next lever is an entropy floor or
+  a schedule rather than a larger constant.
+
+- **Seed variance is severe and the mean is misleading.** Stackelberg per-seed resolve was
+  [0.000, 0.000, 0.610]. Two of three seeds learned nothing. Any future claim needs more
+  seeds and a per-seed table, not an average.
 
 - **`leader_margin` is unvalidated.** 0.15 was chosen by reasoning about filter noise, not by
   a sweep. It sits between two failure modes: too small and the leader label thrashes every
