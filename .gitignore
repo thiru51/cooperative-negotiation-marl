@@ -15,9 +15,12 @@ env/
 *.pth
 *.ckpt
 checkpoints/
-# runs/ holds raw training output including checkpoints; results/ holds the small JSON
-# summaries that the README quotes, so those are tracked on purpose.
-runs/
+# runs/ and results/ are both tracked on purpose, and the reason is verification.
+# The networks here are small MLPs, so a checkpoint is 170 KB and all twelve come to
+# 2.3 MB; the per-update train_log.jsonl files add another 296 KB. Shipping them means
+# anyone can re-derive the reported numbers from the saved weights instead of retraining,
+# and can read the learning curve update by update. See "Verifying the results" in
+# RESULTS.md for the exact command. If the models ever grow past a few MB, revisit this.
 data/
 logs/
 wandb/

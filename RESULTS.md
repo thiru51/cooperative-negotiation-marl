@@ -151,6 +151,39 @@ thing to fix.
 `leader_switches_mean` was 2.08-2.65 across the Stackelberg runs, so the leader/follower
 signal fired throughout and the comparison is valid.
 
+## Verifying the results
+
+Every number above can be re-derived from what is in this repository, without retraining.
+The trained weights are committed (`runs/<tag>_<variant>_seed<N>/checkpoint.pt`, 170 KB
+each) alongside the per-update training logs.
+
+To reproduce the headline v2 Stackelberg seed-0 row:
+
+```bash
+python scripts/evaluate.py \
+  --checkpoint runs/v2_stackelberg_seed0/checkpoint.pt \
+  --variant stackelberg --seed 9000 --episodes 25 \
+  --out /tmp/verify.json
+```
+
+This returns `resolve 0.8550, collision 0.1450, deadlock 0.0000` -- identical to the
+`stackelberg` seed-0 entry in `results/v2.json`.
+
+**The `--seed 9000` matters and is easy to miss.** Training scores its final evaluation
+with `seed = cfg.seed + 9000` (`src/negotiation/training.py`), while `scripts/evaluate.py`
+defaults to `--seed 12345`. Evaluate the same checkpoint under the default seed and you get
+0.8625 rather than 0.8550 -- a different sample of the scenario suite, not a different
+policy. Use `training seed + 9000` to match a reported number.
+
+**One known discrepancy.** The three outcome rates reproduce exactly. `time_to_resolve_mean`
+comes back at 11.95 s against the recorded 11.99 s, a 0.3% gap, because the two paths
+aggregate it slightly differently (mean over per-scenario means vs mean over resolved
+episodes). The rates are the metrics the conclusions rest on; the timing figure should be
+read as approximate to about a tenth of a second.
+
+**What is not committed:** the MetaDrive/highway-env episode caches and the optimiser state.
+Neither is needed to re-score a checkpoint.
+
 ## Honest summary
 
 **v1 (`entropy_coef` 0.02).** Neither variant learns to resolve reliably. Entropy

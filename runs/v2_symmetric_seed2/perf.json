@@ -1,0 +1,17 @@
+{
+  "device": "cuda:0",
+  "device_name": "NVIDIA GeForce RTX 4080 Laptop GPU",
+  "amp_dtype": "torch.bfloat16",
+  "num_envs": 64,
+  "num_workers": 16,
+  "horizon": 128,
+  "hidden": 128,
+  "env_steps": 294912,
+  "train_seconds": 335.1,
+  "rollout_seconds": 331.4,
+  "update_seconds": 2.9,
+  "steps_per_second": 880.2,
+  "rollout_fraction": 0.989,
+  "peak_allocated_gb": 0.031,
+  "peak_reserved_gb": 0.051
+}
