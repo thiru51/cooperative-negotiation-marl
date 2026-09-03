@@ -40,6 +40,11 @@ Read this before anything else.
   collapsed 1.09 -> 0.08, resolve peaked at 0.40 around update 13 then decayed to 0.07, and
   the Stackelberg mean rested on one seed of three. Raising it to 0.05 lifted resolve from
   0.203 to 0.777. v1's ceiling was not the reward design.
+- **The results can be checked without retraining.** The trained weights are committed
+  (170 KB each) with their per-update logs. Re-scoring `runs/v2_stackelberg_seed0/checkpoint.pt`
+  reproduces the reported `resolve 0.8550 / collision 0.1450 / deadlock 0.0000` exactly --
+  see [Verifying the results](RESULTS.md#verifying-the-results) for the command and the
+  evaluation-seed gotcha that trips up a naive re-run.
 
 ---
 
