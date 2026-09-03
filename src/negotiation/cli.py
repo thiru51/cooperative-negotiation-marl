@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 
 MAPPO_FIELDS = ("num_envs", "horizon", "hidden", "batch_size", "num_minibatches",
-                "epochs", "lr", "amp", "compile")
+                "epochs", "lr", "entropy_coef", "amp", "compile")
 TRAIN_FIELDS = ("variant", "total_steps", "seed", "device", "num_workers", "out_dir",
                 "run_name", "eval_every_updates", "final_eval_episodes")
 
@@ -25,6 +25,11 @@ def add_runtime_flags(p: argparse.ArgumentParser) -> None:
     p.add_argument("--hidden", type=int, default=None, help="MLP width for actor and critic")
     p.add_argument("--horizon", type=int, default=None, help="rollout length per update")
     p.add_argument("--epochs", type=int, default=None, help="PPO epochs per update")
+    # Reachable from the command line because the collapse it guards against is the
+    # first thing a run goes wrong by, and run_comparison.py does not read the YAML.
+    p.add_argument("--entropy-coef", dest="entropy_coef", type=float, default=None,
+                   help="entropy bonus weight; raise it if policy entropy collapses "
+                        "in the first few updates")
     p.add_argument("--amp", action=argparse.BooleanOptionalAction, default=None,
                    help="mixed precision in the update (bf16 where supported). On by default")
     p.add_argument("--compile", action="store_true", default=None,

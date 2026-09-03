@@ -40,3 +40,6 @@ htmlcov/
 
 # scratch copies of configs made while sweeping hyperparameters
 *.yaml.v1bak
+# the first v2 attempt was a no-op (run_comparison.py never read the YAML); kept
+# locally as evidence of the mistake, not worth carrying in the repo
+results/v2_void_noop.*
