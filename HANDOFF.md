@@ -9,10 +9,14 @@ The code is finished and tested, and the first experiment has been run: 6 runs, 
 steps each, 2 reward variants x 3 seeds. Numbers are in [RESULTS.md](RESULTS.md), raw JSON
 in `results/`.
 
-The result is negative and worth knowing before you touch anything. The symmetric baseline
-never deadlocked (0.000), so there was no deadlock to break. Policy entropy collapses from
-1.09 to about 0.08; resolve peaks at 0.40 around update 13 and then falls to 0.07 as the
-policy over-commits to never colliding and creeps until the timeout.
+Two experiments are done. **v1** (`entropy_coef` 0.02) was a wash: entropy collapsed
+1.09 -> 0.08, resolve peaked 0.40 at update 13 then decayed to 0.07, and the Stackelberg
+mean rested on one seed of three. **v2** (`entropy_coef` 0.05, passed with the new
+`--entropy-coef` flag) is a real result: Stackelberg resolves 0.777 consistently across
+seeds (0.855 / 0.765 / 0.710) against 0.417 for symmetric, 5 s faster, but collides in
+18.3% of episodes where the baseline collides in none.
+
+The deadlock premise is still unsupported -- 0.000 in both variants, both experiments.
 
 The single most useful thing you can do next is settle whether that is an exploration
 problem or a premise problem -- see [known issues](#known-issues-and-open-items).

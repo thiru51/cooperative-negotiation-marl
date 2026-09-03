@@ -99,16 +99,78 @@ nothing.
 
 0.02 was not high enough.
 
-## What is running next
+## v2: the same experiment with more exploration
 
-`v2`: the same 6-run protocol with `entropy_coef` raised from 0.02 to 0.05 in **both**
-config files. Raising it in only the Stackelberg config would confound the comparison.
-Results will be appended here when it finishes.
+`entropy_coef` raised from 0.02 to 0.05 in **both** variants. Everything else identical:
+same 300,000 steps, same seeds 0/1/2, same evaluation suite.
+
+A first attempt at this was a **no-op and is not reported**: the setting was changed in
+`configs/*.yaml`, but `run_comparison.py` builds its config from CLI flags and never reads
+those files, so it re-ran v1 exactly. The identical output to three decimals is what gave
+it away. `--entropy-coef` is now a real command-line flag; v2 below was run with it.
+
+| metric | stackelberg | symmetric | delta |
+|---|---|---|---|
+| deadlock_rate | 0.000 | 0.000 | +0.000 |
+| resolve_rate | **0.777** | 0.417 | +0.360 |
+| collision_rate | 0.183 | 0.000 | +0.183 |
+| time_to_resolve_mean | 12.49 | 17.49 | -5.01 |
+| mean_speed | 6.19 | 5.39 | +0.81 |
+| mean_jerk | 1.205 | 0.532 | +0.673 |
+
+Exploration was the binding constraint. Resolve went from 0.203 to 0.777 for Stackelberg
+and 0.125 to 0.417 for symmetric, from a single hyperparameter change. v1's ceiling was
+not the reward design; it was the policy committing before it had learned anything.
+
+### The per-seed picture, which is the interesting part
+
+| variant | seed 0 | seed 1 | seed 2 | mean |
+|---|---|---|---|---|
+| stackelberg resolve | 0.855 | 0.765 | 0.710 | 0.777 |
+| stackelberg collision | 0.145 | 0.235 | 0.170 | 0.183 |
+| symmetric resolve | 0.125 | **1.000** | 0.125 | 0.417 |
+| symmetric collision | 0.000 | 0.000 | 0.000 | 0.000 |
+
+**Stackelberg is consistent.** All three seeds land between 0.71 and 0.855. That is a
+real effect, unlike v1 where the mean rested on one seed.
+
+**Symmetric is bimodal.** Two seeds collapse to the same degenerate 0.125 policy. One
+seed found something better than anything Stackelberg produced: **1.000 resolve with
+0.000 collisions** at 12.08 s. So the symmetric reward has the higher ceiling; it just
+reaches it one time in three.
+
+What the Stackelberg shaping buys is therefore **reliability, not peak performance**.
+That is a narrower claim than the one this project started with, and it is the one the
+data supports.
+
+**The collision cost is real and unresolved.** Every Stackelberg seed collides in 14.5%
+to 23.5% of episodes. The symmetric baseline never collides. Trading an 18% collision
+rate for faster resolution is not a good deal for a driving policy, and it is the first
+thing to fix.
+
+`leader_switches_mean` was 2.08-2.65 across the Stackelberg runs, so the leader/follower
+signal fired throughout and the comparison is valid.
 
 ## Honest summary
 
-At 300,000 steps with `entropy_coef = 0.02`, neither reward variant learns to resolve
-this intersection reliably. The Stackelberg variant resolves more often on average and
-much faster when it resolves at all, but that average rests on one seed of three and
-carries a collision rate the symmetric baseline does not have. The deadlock-breaking
-claim is untested, because the symmetric baseline never deadlocked.
+**v1 (`entropy_coef` 0.02).** Neither variant learns to resolve reliably. Entropy
+collapses, resolve peaks at 0.40 around update 13 and decays to 0.07. The Stackelberg
+mean of 0.203 rests on one seed of three.
+
+**v2 (`entropy_coef` 0.05).** Both variants improve sharply. Stackelberg resolves 0.777
+of episodes consistently across seeds, against 0.417 for symmetric, and resolves 5 s
+faster. It pays for this with an 18.3% collision rate that the symmetric baseline does
+not have. The symmetric baseline is bimodal and its best seed (1.000 resolve, 0.000
+collisions) beats every Stackelberg seed.
+
+**The original premise remains unsupported.** This project was built on the claim that a
+symmetric reward collapses into wait-wait deadlock and Stackelberg shaping breaks it. The
+symmetric baseline deadlocked in **0.000** of episodes in both v1 and v2. The scripted
+`always-yield` anchor deadlocks 1.000 of the time, so the environment and the metric both
+work -- a *learned* symmetric policy simply does not go there. It creeps to the timeout
+instead, which dodges the strict deadlock test (stalled for the final two seconds).
+
+The defensible claim from this data is: **Stackelberg-style asymmetric shaping makes
+negotiation outcomes consistent across seeds where a symmetric reward is bimodal, at the
+cost of a materially worse collision rate.** The deadlock claim needs either restating in
+terms of timeouts, or dropping.

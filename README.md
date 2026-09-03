@@ -19,24 +19,27 @@ Read this before anything else.
 - The test suite passes: 55 tests, 8 files.
 - The smoke test passes end to end, including the check that splitting the environments
   across worker processes reproduces the single-process trajectories exactly.
-- **The first experiment has been run.** 6 runs, 300,000 steps each, 2 reward variants
-  x 3 seeds, on an RTX 4080 Laptop at 886.7 env-steps/s. Full write-up in
-  [RESULTS.md](RESULTS.md); raw output in `results/`.
-- **The headline result is negative, and it is stated plainly.** The symmetric baseline
-  was supposed to collapse into a wait-wait deadlock. It deadlocked in 0.000 of evaluation
-  episodes. There was no deadlock to break, so the central claim of this project is so far
-  unsupported by its own experiment.
-- The Stackelberg variant does resolve more often on average (0.203 vs 0.125) and much
-  faster when it resolves (12.5 s vs 20.2 s), but that average rests on **one seed out of
-  three** -- the other two never resolve a single episode -- and it collides in 8.8% of
-  episodes where the symmetric baseline collides in none. One seed in three is not an
-  effect.
-
-The cause is understood. Policy entropy collapses from 1.09 to about 0.08; resolve rate
-peaks at 0.40 around update 13 and then degrades as the policy over-commits to never
-colliding and simply creeps until the timeout. A second run with `entropy_coef` raised
-from 0.02 to 0.05 in both variants is the next step. [RESULTS.md](RESULTS.md) has the
-entropy trace, the per-seed breakdown, and the scripted-policy anchors that fix the scale.
+- **Two experiments have been run.** 12 runs total (2 reward variants x 3 seeds x 2
+  exploration settings), 300,000 steps each, on an RTX 4080 Laptop at ~880 env-steps/s.
+  Full write-up in [RESULTS.md](RESULTS.md); raw output in `results/`.
+- **Headline (v2, `entropy_coef` 0.05).** The Stackelberg reward resolves **0.777** of
+  evaluation episodes against **0.417** for the symmetric baseline, and resolves 5 s
+  faster. Crucially it is *consistent*: per-seed 0.855 / 0.765 / 0.710. The symmetric
+  baseline is bimodal -- two seeds collapse to a degenerate 0.125 policy, one seed reaches
+  1.000. So the shaping buys **reliability, not a higher ceiling**.
+- **The cost is collisions.** Every Stackelberg seed collides in 14.5-23.5% of episodes
+  (mean 0.183). The symmetric baseline collides in none. That trade is not yet acceptable
+  for a driving policy and is the first thing to fix.
+- **The original premise is still unsupported.** This project was built on the claim that
+  a symmetric reward collapses into wait-wait deadlock. It deadlocked in **0.000** of
+  episodes in both experiments. The scripted `always-yield` anchor deadlocks 1.000 of the
+  time, so the environment and metric work -- a *learned* symmetric policy simply creeps to
+  the timeout instead, which dodges the strict deadlock test. The deadlock claim needs
+  restating in terms of timeouts, or dropping.
+- **Exploration was the binding constraint in v1.** At `entropy_coef` 0.02 entropy
+  collapsed 1.09 -> 0.08, resolve peaked at 0.40 around update 13 then decayed to 0.07, and
+  the Stackelberg mean rested on one seed of three. Raising it to 0.05 lifted resolve from
+  0.203 to 0.777. v1's ceiling was not the reward design.
 
 ---
 

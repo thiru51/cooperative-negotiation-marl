@@ -3,15 +3,18 @@
 State of the project as of the last commit. Boxes are ticked only for things that exist and
 have been run. Nothing here is ticked on the strength of intending to do it.
 
-**Summary: the code is done and the first experiment has been run.** 6 runs (2 reward
-variants x 3 seeds, 300,000 steps each) completed on 2 Sep 2026. Results are in
-[RESULTS.md](RESULTS.md) and `results/`.
+**Summary: the code is done and two experiments have been run.** 12 runs total
+(2 reward variants x 3 seeds x 2 exploration settings), 300,000 steps each, on
+2-3 Sep 2026. Results in [RESULTS.md](RESULTS.md) and `results/`.
 
-**The headline result is negative.** The symmetric baseline deadlocked in 0.000 of
-evaluation episodes, so the wait-wait deadlock the Stackelberg reward exists to break did
-not occur, and the central claim is unsupported by this run. The Stackelberg variant
-resolves more on average (0.203 vs 0.125) and faster (12.5 s vs 20.2 s), but that rests on
-one seed of three and costs an 8.8% collision rate against the baseline's zero.
+**v2 result (`entropy_coef` 0.05):** Stackelberg resolves 0.777 of evaluation episodes
+against 0.417 for symmetric, consistently across seeds (0.855 / 0.765 / 0.710), and 5 s
+faster. It collides in 18.3% of episodes where the baseline collides in none. The
+symmetric baseline is bimodal -- two seeds degenerate at 0.125, one reaches 1.000 -- so
+the shaping buys reliability, not a higher ceiling.
+
+**Still unsupported:** the deadlock premise. Both variants deadlocked 0.000 in both
+experiments.
 
 ## Done
 

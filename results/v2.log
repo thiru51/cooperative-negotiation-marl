@@ -1,0 +1,366 @@
+
+=== stackelberg  seed 0  300000 steps ===
+cuda: NVIDIA GeForce RTX 4080 Laptop GPU sm_89 11.6GB  amp=bfloat16  envs=64 workers=16
+u   1 steps=    8192 sps=  899 r= -0.0104 ent=1.092 kl=0.0061 resolve=0.08 deadlock=0.00 coll=0.44 ttr=19.28
+u   2 steps=   16384 sps=  908 r=  0.0062 ent=1.074 kl=0.0041 resolve=0.08 deadlock=0.00 coll=0.38 ttr=19.06
+u   3 steps=   24576 sps=  903 r=  0.0174 ent=1.036 kl=0.0069 resolve=0.08 deadlock=0.00 coll=0.27 ttr=18.5
+u   4 steps=   32768 sps=  898 r=  0.0497 ent=0.983 kl=0.0076 resolve=0.12 deadlock=0.00 coll=0.20 ttr=18.0
+u   5 steps=   40960 sps=  894 r=  0.0846 ent=0.901 kl=0.0109 resolve=0.23 deadlock=0.00 coll=0.13 ttr=17.4596
+u   6 steps=   49152 sps=  888 r=  0.1279 ent=0.815 kl=0.0078 resolve=0.42 deadlock=0.00 coll=0.11 ttr=15.4381
+u   7 steps=   57344 sps=  884 r=  0.1243 ent=0.770 kl=0.0046 resolve=0.52 deadlock=0.00 coll=0.20 ttr=14.1786
+u   8 steps=   65536 sps=  879 r=  0.1465 ent=0.717 kl=0.0031 resolve=0.60 deadlock=0.00 coll=0.26 ttr=12.705
+u   9 steps=   73728 sps=  874 r=  0.1581 ent=0.688 kl=0.0009 resolve=0.67 deadlock=0.00 coll=0.32 ttr=10.9143
+u  10 steps=   81920 sps=  870 r=  0.1553 ent=0.718 kl=0.0026 resolve=0.64 deadlock=0.00 coll=0.33 ttr=10.2422
+u  11 steps=   90112 sps=  870 r=  0.1463 ent=0.712 kl=0.0033 resolve=0.64 deadlock=0.00 coll=0.33 ttr=11.8614
+u  12 steps=   98304 sps=  870 r=  0.1864 ent=0.686 kl=0.0025 resolve=0.69 deadlock=0.00 coll=0.20 ttr=12.4662
+u  13 steps=  106496 sps=  870 r=  0.1964 ent=0.635 kl=0.0015 resolve=0.73 deadlock=0.00 coll=0.08 ttr=13.511
+u  14 steps=  114688 sps=  869 r=  0.1977 ent=0.591 kl=0.0025 resolve=0.75 deadlock=0.00 coll=0.03 ttr=15.0507
+u  15 steps=  122880 sps=  870 r=  0.2079 ent=0.558 kl=0.0024 resolve=0.75 deadlock=0.00 coll=0.02 ttr=15.256
+u  16 steps=  131072 sps=  869 r=  0.2298 ent=0.535 kl=0.0016 resolve=0.83 deadlock=0.00 coll=0.04 ttr=13.6946
+u  17 steps=  139264 sps=  868 r=  0.2330 ent=0.548 kl=0.0011 resolve=0.89 deadlock=0.00 coll=0.07 ttr=12.3311
+u  18 steps=  147456 sps=  868 r=  0.2452 ent=0.542 kl=0.0014 resolve=0.92 deadlock=0.00 coll=0.07 ttr=11.7326
+u  19 steps=  155648 sps=  868 r=  0.2580 ent=0.511 kl=0.0011 resolve=0.94 deadlock=0.00 coll=0.06 ttr=11.1735
+u  20 steps=  163840 sps=  868 r=  0.2777 ent=0.494 kl=0.0008 resolve=0.98 deadlock=0.00 coll=0.02 ttr=10.699
+u  21 steps=  172032 sps=  867 r=  0.2724 ent=0.511 kl=0.0016 resolve=0.95 deadlock=0.00 coll=0.05 ttr=10.3621
+u  22 steps=  180224 sps=  866 r=  0.2695 ent=0.520 kl=0.0009 resolve=0.94 deadlock=0.00 coll=0.06 ttr=10.4309
+u  23 steps=  188416 sps=  866 r=  0.2758 ent=0.490 kl=0.0018 resolve=0.98 deadlock=0.00 coll=0.02 ttr=10.6245
+u  24 steps=  196608 sps=  866 r=  0.2864 ent=0.465 kl=0.0013 resolve=0.98 deadlock=0.00 coll=0.02 ttr=10.3408
+u  25 steps=  204800 sps=  866 r=  0.2937 ent=0.447 kl=0.0011 resolve=0.99 deadlock=0.00 coll=0.01 ttr=10.201
+u  26 steps=  212992 sps=  865 r=  0.3051 ent=0.424 kl=0.0008 resolve=0.99 deadlock=0.00 coll=0.01 ttr=9.9789
+u  27 steps=  221184 sps=  864 r=  0.2909 ent=0.423 kl=0.0018 resolve=0.93 deadlock=0.00 coll=0.07 ttr=9.8226
+u  28 steps=  229376 sps=  863 r=  0.3023 ent=0.430 kl=0.0007 resolve=0.96 deadlock=0.00 coll=0.04 ttr=9.6788
+u  29 steps=  237568 sps=  863 r=  0.2979 ent=0.427 kl=0.0006 resolve=0.98 deadlock=0.00 coll=0.01 ttr=9.9482
+u  30 steps=  245760 sps=  862 r=  0.2940 ent=0.433 kl=0.0010 resolve=0.97 deadlock=0.00 coll=0.03 ttr=10.1619
+u  31 steps=  253952 sps=  861 r=  0.2875 ent=0.424 kl=0.0012 resolve=0.99 deadlock=0.00 coll=0.01 ttr=10.5327
+u  32 steps=  262144 sps=  860 r=  0.2907 ent=0.417 kl=0.0006 resolve=0.97 deadlock=0.00 coll=0.03 ttr=10.5467
+u  33 steps=  270336 sps=  860 r=  0.2865 ent=0.413 kl=0.0013 resolve=0.99 deadlock=0.00 coll=0.01 ttr=10.8201
+u  34 steps=  278528 sps=  860 r=  0.2930 ent=0.395 kl=0.0007 resolve=0.97 deadlock=0.00 coll=0.03 ttr=10.6763
+u  35 steps=  286720 sps=  859 r=  0.2883 ent=0.409 kl=0.0001 resolve=0.99 deadlock=0.00 coll=0.01 ttr=10.6576
+u  36 steps=  294912 sps=  859 r=  0.2890 ent=0.400 kl=0.0002 resolve=1.00 deadlock=0.00 coll=0.00 ttr=10.961
+
+--------------------------------------------------------------
+device        cuda:0 (NVIDIA GeForce RTX 4080 Laptop GPU), amp torch.bfloat16
+env steps     294912 in 344.0 s
+throughput    857.2 env-steps/s  (rollout 99%, update 1%)
+peak VRAM     0.031 GB allocated / 0.051 GB reserved
+--------------------------------------------------------------
+
+scenario            resolve  deadlock  collide  ttr_mean    jerk
+----------------------------------------------------------------
+offset_small           0.68      0.00     0.32     11.79    1.47
+offset_large           0.20      0.00     0.80      9.68    1.75
+offset_reversed        1.00      0.00     0.00     11.69    1.37
+sym_mid_arms12         1.00      0.00     0.00     12.33    1.38
+sym_mid_arms23         1.00      0.00     0.00     12.03    1.39
+sym_slow               1.00      0.00     0.00     12.09    1.39
+speed_mismatch         1.00      0.00     0.00     12.28    1.09
+sym_fast               0.96      0.00     0.04     12.14    0.87
+----------------------------------------------------------------
+OVERALL                0.85      0.00     0.14     11.99    1.34
+
+=== symmetric  seed 0  300000 steps ===
+cuda: NVIDIA GeForce RTX 4080 Laptop GPU sm_89 11.6GB  amp=bfloat16  envs=64 workers=16
+u   1 steps=    8192 sps=  902 r= -0.0564 ent=1.092 kl=0.0061 resolve=0.08 deadlock=0.00 coll=0.44 ttr=19.28
+u   2 steps=   16384 sps=  899 r= -0.0501 ent=1.071 kl=0.0064 resolve=0.06 deadlock=0.00 coll=0.41 ttr=19.075
+u   3 steps=   24576 sps=  896 r= -0.0168 ent=1.027 kl=0.0061 resolve=0.07 deadlock=0.00 coll=0.27 ttr=18.7467
+u   4 steps=   32768 sps=  892 r=  0.0101 ent=0.957 kl=0.0089 resolve=0.09 deadlock=0.00 coll=0.18 ttr=18.3556
+u   5 steps=   40960 sps=  891 r=  0.0450 ent=0.882 kl=0.0092 resolve=0.12 deadlock=0.00 coll=0.14 ttr=18.728
+u   6 steps=   49152 sps=  889 r=  0.0989 ent=0.753 kl=0.0107 resolve=0.20 deadlock=0.00 coll=0.09 ttr=17.5179
+u   7 steps=   57344 sps=  885 r=  0.1219 ent=0.677 kl=0.0061 resolve=0.26 deadlock=0.00 coll=0.04 ttr=16.5098
+u   8 steps=   65536 sps=  884 r=  0.1445 ent=0.619 kl=0.0037 resolve=0.35 deadlock=0.00 coll=0.07 ttr=15.7343
+u   9 steps=   73728 sps=  882 r=  0.1460 ent=0.595 kl=0.0016 resolve=0.46 deadlock=0.00 coll=0.10 ttr=15.3435
+u  10 steps=   81920 sps=  881 r=  0.1452 ent=0.591 kl=0.0007 resolve=0.47 deadlock=0.00 coll=0.16 ttr=14.6779
+u  11 steps=   90112 sps=  879 r=  0.1725 ent=0.548 kl=0.0013 resolve=0.51 deadlock=0.00 coll=0.12 ttr=14.0784
+u  12 steps=   98304 sps=  879 r=  0.1786 ent=0.481 kl=0.0023 resolve=0.49 deadlock=0.00 coll=0.04 ttr=14.5429
+u  13 steps=  106496 sps=  878 r=  0.1811 ent=0.438 kl=0.0024 resolve=0.44 deadlock=0.00 coll=0.02 ttr=15.9295
+u  14 steps=  114688 sps=  878 r=  0.1882 ent=0.391 kl=0.0025 resolve=0.47 deadlock=0.00 coll=0.01 ttr=16.4774
+u  15 steps=  122880 sps=  877 r=  0.1960 ent=0.340 kl=0.0021 resolve=0.42 deadlock=0.00 coll=0.00 ttr=16.4094
+u  16 steps=  131072 sps=  876 r=  0.1872 ent=0.322 kl=0.0013 resolve=0.38 deadlock=0.00 coll=0.02 ttr=16.6921
+u  17 steps=  139264 sps=  876 r=  0.1907 ent=0.300 kl=0.0009 resolve=0.40 deadlock=0.00 coll=0.03 ttr=16.975
+u  18 steps=  147456 sps=  876 r=  0.1919 ent=0.243 kl=0.0009 resolve=0.34 deadlock=0.00 coll=0.02 ttr=17.5559
+u  19 steps=  155648 sps=  875 r=  0.1902 ent=0.210 kl=0.0006 resolve=0.27 deadlock=0.00 coll=0.01 ttr=18.0593
+u  20 steps=  163840 sps=  875 r=  0.1888 ent=0.174 kl=0.0003 resolve=0.23 deadlock=0.00 coll=0.00 ttr=18.5689
+u  21 steps=  172032 sps=  876 r=  0.1886 ent=0.168 kl=0.0002 resolve=0.21 deadlock=0.00 coll=0.00 ttr=18.2571
+u  22 steps=  180224 sps=  877 r=  0.1850 ent=0.152 kl=0.0001 resolve=0.20 deadlock=0.00 coll=0.00 ttr=18.4244
+u  23 steps=  188416 sps=  877 r=  0.1777 ent=0.137 kl=0.0002 resolve=0.15 deadlock=0.00 coll=0.00 ttr=18.5
+u  24 steps=  196608 sps=  877 r=  0.1765 ent=0.127 kl=0.0002 resolve=0.13 deadlock=0.00 coll=0.00 ttr=18.9154
+u  25 steps=  204800 sps=  878 r=  0.1668 ent=0.123 kl=0.0001 resolve=0.11 deadlock=0.00 coll=0.00 ttr=18.8364
+u  26 steps=  212992 sps=  878 r=  0.1625 ent=0.116 kl=0.0002 resolve=0.11 deadlock=0.00 coll=0.00 ttr=18.7818
+u  27 steps=  221184 sps=  878 r=  0.1553 ent=0.111 kl=0.0001 resolve=0.08 deadlock=0.00 coll=0.00 ttr=18.55
+u  28 steps=  229376 sps=  877 r=  0.1519 ent=0.103 kl=0.0000 resolve=0.07 deadlock=0.00 coll=0.00 ttr=19.0533
+u  29 steps=  237568 sps=  877 r=  0.1419 ent=0.107 kl=0.0000 resolve=0.08 deadlock=0.00 coll=0.00 ttr=19.175
+u  30 steps=  245760 sps=  877 r=  0.1367 ent=0.105 kl=0.0000 resolve=0.09 deadlock=0.00 coll=0.00 ttr=19.3294
+u  31 steps=  253952 sps=  877 r=  0.1331 ent=0.105 kl=0.0000 resolve=0.11 deadlock=0.00 coll=0.00 ttr=19.4545
+u  32 steps=  262144 sps=  877 r=  0.1258 ent=0.113 kl=0.0000 resolve=0.08 deadlock=0.00 coll=0.00 ttr=19.675
+u  33 steps=  270336 sps=  876 r=  0.1159 ent=0.116 kl=0.0000 resolve=0.06 deadlock=0.00 coll=0.00 ttr=19.5818
+u  34 steps=  278528 sps=  876 r=  0.1085 ent=0.113 kl=0.0000 resolve=0.05 deadlock=0.00 coll=0.00 ttr=19.24
+u  35 steps=  286720 sps=  876 r=  0.0999 ent=0.111 kl=0.0000 resolve=0.04 deadlock=0.00 coll=0.00 ttr=19.5
+u  36 steps=  294912 sps=  876 r=  0.0927 ent=0.112 kl=0.0000 resolve=0.04 deadlock=0.00 coll=0.00 ttr=19.2444
+
+--------------------------------------------------------------
+device        cuda:0 (NVIDIA GeForce RTX 4080 Laptop GPU), amp torch.bfloat16
+env steps     294912 in 337.3 s
+throughput    874.4 env-steps/s  (rollout 99%, update 1%)
+peak VRAM     0.031 GB allocated / 0.051 GB reserved
+--------------------------------------------------------------
+
+scenario            resolve  deadlock  collide  ttr_mean    jerk
+----------------------------------------------------------------
+sym_slow               0.00      0.00     0.00       n/a    0.40
+sym_fast               0.00      0.00     0.00       n/a    0.25
+offset_small           0.00      0.00     0.00       n/a    0.40
+offset_large           1.00      0.00     0.00     20.20    0.40
+speed_mismatch         0.00      0.00     0.00       n/a    0.17
+sym_mid_arms12         0.00      0.00     0.00       n/a    0.40
+sym_mid_arms23         0.00      0.00     0.00       n/a    0.40
+offset_reversed        0.00      0.00     0.00       n/a    0.40
+----------------------------------------------------------------
+OVERALL                0.12      0.00     0.00     20.20    0.35
+
+=== stackelberg  seed 1  300000 steps ===
+cuda: NVIDIA GeForce RTX 4080 Laptop GPU sm_89 11.6GB  amp=bfloat16  envs=64 workers=16
+u   1 steps=    8192 sps=  918 r= -0.0076 ent=1.095 kl=0.0032 resolve=0.08 deadlock=0.00 coll=0.42 ttr=19.0
+u   2 steps=   16384 sps=  911 r=  0.0015 ent=1.075 kl=0.0040 resolve=0.07 deadlock=0.00 coll=0.37 ttr=18.4667
+u   3 steps=   24576 sps=  904 r=  0.0080 ent=1.046 kl=0.0050 resolve=0.03 deadlock=0.00 coll=0.23 ttr=18.3333
+u   4 steps=   32768 sps=  902 r=  0.0341 ent=0.993 kl=0.0094 resolve=0.03 deadlock=0.00 coll=0.17 ttr=18.9333
+u   5 steps=   40960 sps=  900 r=  0.0579 ent=0.931 kl=0.0095 resolve=0.07 deadlock=0.00 coll=0.14 ttr=18.4571
+u   6 steps=   49152 sps=  898 r=  0.0744 ent=0.871 kl=0.0102 resolve=0.14 deadlock=0.00 coll=0.07 ttr=17.0276
+u   7 steps=   57344 sps=  895 r=  0.1126 ent=0.808 kl=0.0067 resolve=0.35 deadlock=0.00 coll=0.10 ttr=14.1514
+u   8 steps=   65536 sps=  892 r=  0.1128 ent=0.745 kl=0.0026 resolve=0.52 deadlock=0.00 coll=0.30 ttr=12.134
+u   9 steps=   73728 sps=  890 r=  0.1171 ent=0.714 kl=0.0014 resolve=0.53 deadlock=0.00 coll=0.38 ttr=11.2019
+u  10 steps=   81920 sps=  886 r=  0.1278 ent=0.693 kl=0.0015 resolve=0.54 deadlock=0.00 coll=0.45 ttr=9.5252
+u  11 steps=   90112 sps=  884 r=  0.1431 ent=0.734 kl=0.0015 resolve=0.59 deadlock=0.00 coll=0.40 ttr=10.1102
+u  12 steps=   98304 sps=  883 r=  0.1531 ent=0.746 kl=0.0025 resolve=0.62 deadlock=0.00 coll=0.31 ttr=10.8224
+u  13 steps=  106496 sps=  882 r=  0.1732 ent=0.696 kl=0.0029 resolve=0.67 deadlock=0.00 coll=0.23 ttr=12.1567
+u  14 steps=  114688 sps=  882 r=  0.1914 ent=0.661 kl=0.0023 resolve=0.72 deadlock=0.00 coll=0.10 ttr=13.7559
+u  15 steps=  122880 sps=  883 r=  0.2036 ent=0.612 kl=0.0024 resolve=0.81 deadlock=0.00 coll=0.01 ttr=14.7
+u  16 steps=  131072 sps=  883 r=  0.2132 ent=0.569 kl=0.0028 resolve=0.89 deadlock=0.00 coll=0.00 ttr=14.7243
+u  17 steps=  139264 sps=  883 r=  0.2293 ent=0.538 kl=0.0014 resolve=0.93 deadlock=0.00 coll=0.03 ttr=13.671
+u  18 steps=  147456 sps=  882 r=  0.2381 ent=0.487 kl=0.0029 resolve=0.96 deadlock=0.00 coll=0.03 ttr=12.5648
+u  19 steps=  155648 sps=  881 r=  0.2623 ent=0.465 kl=0.0013 resolve=0.98 deadlock=0.00 coll=0.01 ttr=11.8234
+u  20 steps=  163840 sps=  880 r=  0.2563 ent=0.477 kl=0.0019 resolve=0.93 deadlock=0.00 coll=0.07 ttr=10.8839
+u  21 steps=  172032 sps=  879 r=  0.2668 ent=0.502 kl=0.0007 resolve=0.94 deadlock=0.00 coll=0.07 ttr=10.3112
+u  22 steps=  180224 sps=  877 r=  0.2676 ent=0.496 kl=0.0006 resolve=0.97 deadlock=0.00 coll=0.03 ttr=10.5773
+u  23 steps=  188416 sps=  877 r=  0.2708 ent=0.491 kl=0.0003 resolve=0.96 deadlock=0.00 coll=0.04 ttr=10.5188
+u  24 steps=  196608 sps=  876 r=  0.2717 ent=0.490 kl=0.0005 resolve=0.95 deadlock=0.00 coll=0.04 ttr=10.378
+u  25 steps=  204800 sps=  876 r=  0.2774 ent=0.469 kl=0.0015 resolve=0.98 deadlock=0.00 coll=0.01 ttr=10.5807
+u  26 steps=  212992 sps=  875 r=  0.2883 ent=0.448 kl=0.0009 resolve=0.99 deadlock=0.00 coll=0.01 ttr=10.3828
+u  27 steps=  221184 sps=  874 r=  0.2991 ent=0.419 kl=0.0008 resolve=0.99 deadlock=0.00 coll=0.01 ttr=10.0707
+u  28 steps=  229376 sps=  874 r=  0.2951 ent=0.419 kl=0.0024 resolve=0.92 deadlock=0.00 coll=0.08 ttr=9.6478
+u  29 steps=  237568 sps=  873 r=  0.2901 ent=0.448 kl=0.0007 resolve=0.93 deadlock=0.00 coll=0.07 ttr=9.7978
+u  30 steps=  245760 sps=  873 r=  0.2829 ent=0.456 kl=0.0025 resolve=0.99 deadlock=0.00 coll=0.01 ttr=10.4332
+u  31 steps=  253952 sps=  872 r=  0.2875 ent=0.443 kl=0.0001 resolve=0.98 deadlock=0.00 coll=0.01 ttr=10.6589
+u  32 steps=  262144 sps=  871 r=  0.2874 ent=0.444 kl=0.0004 resolve=0.96 deadlock=0.00 coll=0.04 ttr=10.4708
+u  33 steps=  270336 sps=  871 r=  0.2779 ent=0.455 kl=0.0006 resolve=0.98 deadlock=0.00 coll=0.02 ttr=10.8551
+u  34 steps=  278528 sps=  870 r=  0.2756 ent=0.433 kl=0.0001 resolve=0.96 deadlock=0.00 coll=0.04 ttr=11.1316
+u  35 steps=  286720 sps=  870 r=  0.2726 ent=0.440 kl=0.0001 resolve=0.94 deadlock=0.00 coll=0.06 ttr=10.873
+u  36 steps=  294912 sps=  869 r=  0.2726 ent=0.449 kl=0.0000 resolve=0.96 deadlock=0.00 coll=0.04 ttr=11.2881
+
+--------------------------------------------------------------
+device        cuda:0 (NVIDIA GeForce RTX 4080 Laptop GPU), amp torch.bfloat16
+env steps     294912 in 340.0 s
+throughput    867.4 env-steps/s  (rollout 99%, update 1%)
+peak VRAM     0.031 GB allocated / 0.051 GB reserved
+--------------------------------------------------------------
+
+scenario            resolve  deadlock  collide  ttr_mean    jerk
+----------------------------------------------------------------
+offset_small           0.44      0.00     0.56     11.64    1.50
+offset_large           0.04      0.00     0.96     11.20    1.69
+offset_reversed        1.00      0.00     0.00     11.24    1.34
+sym_slow               0.88      0.00     0.12     11.92    1.39
+sym_fast               0.96      0.00     0.04     11.91    0.90
+speed_mismatch         0.96      0.00     0.04     11.73    1.04
+sym_mid_arms12         1.00      0.00     0.00     11.95    1.42
+sym_mid_arms23         0.84      0.00     0.16     12.04    1.40
+----------------------------------------------------------------
+OVERALL                0.77      0.00     0.23     11.77    1.34
+
+=== symmetric  seed 1  300000 steps ===
+cuda: NVIDIA GeForce RTX 4080 Laptop GPU sm_89 11.6GB  amp=bfloat16  envs=64 workers=16
+u   1 steps=    8192 sps=  899 r= -0.0569 ent=1.094 kl=0.0047 resolve=0.08 deadlock=0.00 coll=0.42 ttr=19.0
+u   2 steps=   16384 sps=  898 r= -0.0545 ent=1.074 kl=0.0076 resolve=0.06 deadlock=0.00 coll=0.38 ttr=19.025
+u   3 steps=   24576 sps=  890 r= -0.0504 ent=1.044 kl=0.0031 resolve=0.03 deadlock=0.00 coll=0.27 ttr=19.1
+u   4 steps=   32768 sps=  887 r= -0.0116 ent=0.985 kl=0.0092 resolve=0.01 deadlock=0.00 coll=0.20 ttr=19.0
+u   5 steps=   40960 sps=  888 r=  0.0201 ent=0.927 kl=0.0096 resolve=0.01 deadlock=0.00 coll=0.14 ttr=18.2
+u   6 steps=   49152 sps=  889 r=  0.0437 ent=0.841 kl=0.0095 resolve=0.04 deadlock=0.00 coll=0.06 ttr=17.7143
+u   7 steps=   57344 sps=  889 r=  0.0672 ent=0.757 kl=0.0083 resolve=0.11 deadlock=0.00 coll=0.08 ttr=17.3818
+u   8 steps=   65536 sps=  889 r=  0.1092 ent=0.711 kl=0.0055 resolve=0.20 deadlock=0.00 coll=0.07 ttr=16.145
+u   9 steps=   73728 sps=  888 r=  0.1130 ent=0.673 kl=0.0035 resolve=0.31 deadlock=0.00 coll=0.12 ttr=14.0839
+u  10 steps=   81920 sps=  887 r=  0.1122 ent=0.666 kl=0.0025 resolve=0.46 deadlock=0.00 coll=0.27 ttr=12.3348
+u  11 steps=   90112 sps=  884 r=  0.1290 ent=0.670 kl=0.0018 resolve=0.58 deadlock=0.00 coll=0.28 ttr=10.8462
+u  12 steps=   98304 sps=  880 r=  0.0864 ent=0.679 kl=0.0022 resolve=0.55 deadlock=0.00 coll=0.39 ttr=10.4291
+u  13 steps=  106496 sps=  877 r=  0.1066 ent=0.704 kl=0.0023 resolve=0.61 deadlock=0.00 coll=0.36 ttr=10.5197
+u  14 steps=  114688 sps=  876 r=  0.1526 ent=0.684 kl=0.0023 resolve=0.69 deadlock=0.00 coll=0.21 ttr=11.9203
+u  15 steps=  122880 sps=  876 r=  0.1751 ent=0.634 kl=0.0028 resolve=0.81 deadlock=0.00 coll=0.08 ttr=12.9509
+u  16 steps=  131072 sps=  875 r=  0.1865 ent=0.561 kl=0.0027 resolve=0.91 deadlock=0.00 coll=0.04 ttr=13.3713
+u  17 steps=  139264 sps=  875 r=  0.2023 ent=0.489 kl=0.0041 resolve=0.98 deadlock=0.00 coll=0.01 ttr=13.4714
+u  18 steps=  147456 sps=  875 r=  0.2207 ent=0.414 kl=0.0026 resolve=1.00 deadlock=0.00 coll=0.00 ttr=12.424
+u  19 steps=  155648 sps=  874 r=  0.2271 ent=0.345 kl=0.0021 resolve=1.00 deadlock=0.00 coll=0.00 ttr=11.951
+u  20 steps=  163840 sps=  874 r=  0.2326 ent=0.284 kl=0.0011 resolve=1.00 deadlock=0.00 coll=0.00 ttr=11.735
+u  21 steps=  172032 sps=  873 r=  0.2362 ent=0.246 kl=0.0014 resolve=1.00 deadlock=0.00 coll=0.00 ttr=11.719
+u  22 steps=  180224 sps=  873 r=  0.2397 ent=0.214 kl=0.0007 resolve=1.00 deadlock=0.00 coll=0.00 ttr=11.775
+u  23 steps=  188416 sps=  872 r=  0.2348 ent=0.190 kl=0.0009 resolve=1.00 deadlock=0.00 coll=0.00 ttr=11.851
+u  24 steps=  196608 sps=  872 r=  0.2425 ent=0.162 kl=0.0006 resolve=1.00 deadlock=0.00 coll=0.00 ttr=11.852
+u  25 steps=  204800 sps=  871 r=  0.2417 ent=0.145 kl=0.0003 resolve=1.00 deadlock=0.00 coll=0.00 ttr=11.781
+u  26 steps=  212992 sps=  871 r=  0.2441 ent=0.128 kl=0.0003 resolve=1.00 deadlock=0.00 coll=0.00 ttr=11.737
+u  27 steps=  221184 sps=  871 r=  0.2428 ent=0.114 kl=0.0003 resolve=1.00 deadlock=0.00 coll=0.00 ttr=11.839
+u  28 steps=  229376 sps=  871 r=  0.2458 ent=0.108 kl=0.0003 resolve=1.00 deadlock=0.00 coll=0.00 ttr=11.759
+u  29 steps=  237568 sps=  871 r=  0.2477 ent=0.104 kl=0.0005 resolve=1.00 deadlock=0.00 coll=0.00 ttr=11.627
+u  30 steps=  245760 sps=  870 r=  0.2473 ent=0.104 kl=0.0002 resolve=1.00 deadlock=0.00 coll=0.00 ttr=11.637
+u  31 steps=  253952 sps=  870 r=  0.2473 ent=0.097 kl=0.0002 resolve=1.00 deadlock=0.00 coll=0.00 ttr=11.599
+u  32 steps=  262144 sps=  870 r=  0.2504 ent=0.095 kl=0.0001 resolve=1.00 deadlock=0.00 coll=0.00 ttr=11.519
+u  33 steps=  270336 sps=  870 r=  0.2512 ent=0.092 kl=0.0002 resolve=1.00 deadlock=0.00 coll=0.00 ttr=11.404
+u  34 steps=  278528 sps=  870 r=  0.2509 ent=0.086 kl=0.0000 resolve=1.00 deadlock=0.00 coll=0.00 ttr=11.374
+u  35 steps=  286720 sps=  870 r=  0.2506 ent=0.086 kl=0.0001 resolve=1.00 deadlock=0.00 coll=0.00 ttr=11.3
+u  36 steps=  294912 sps=  870 r=  0.2535 ent=0.086 kl=0.0000 resolve=1.00 deadlock=0.00 coll=0.00 ttr=11.305
+
+--------------------------------------------------------------
+device        cuda:0 (NVIDIA GeForce RTX 4080 Laptop GPU), amp torch.bfloat16
+env steps     294912 in 339.8 s
+throughput    867.8 env-steps/s  (rollout 99%, update 1%)
+peak VRAM     0.031 GB allocated / 0.051 GB reserved
+--------------------------------------------------------------
+
+scenario            resolve  deadlock  collide  ttr_mean    jerk
+----------------------------------------------------------------
+offset_large           1.00      0.00     0.00     11.00    1.00
+offset_reversed        1.00      0.00     0.00     11.57    1.14
+offset_small           1.00      0.00     0.00     12.10    0.91
+sym_fast               1.00      0.00     0.00     12.19    0.66
+speed_mismatch         1.00      0.00     0.00     12.40    0.58
+sym_mid_arms12         1.00      0.00     0.00     12.40    0.89
+sym_mid_arms23         1.00      0.00     0.00     12.40    0.89
+sym_slow               1.00      0.00     0.00     12.59    0.91
+----------------------------------------------------------------
+OVERALL                1.00      0.00     0.00     12.08    0.87
+
+=== stackelberg  seed 2  300000 steps ===
+cuda: NVIDIA GeForce RTX 4080 Laptop GPU sm_89 11.6GB  amp=bfloat16  envs=64 workers=16
+u   1 steps=    8192 sps=  909 r= -0.0202 ent=1.093 kl=0.0053 resolve=0.03 deadlock=0.00 coll=0.53 ttr=19.6
+u   2 steps=   16384 sps=  906 r=  0.0000 ent=1.073 kl=0.0047 resolve=0.03 deadlock=0.00 coll=0.43 ttr=19.6
+u   3 steps=   24576 sps=  904 r=  0.0094 ent=1.047 kl=0.0046 resolve=0.02 deadlock=0.00 coll=0.29 ttr=19.6
+u   4 steps=   32768 sps=  897 r=  0.0408 ent=1.003 kl=0.0083 resolve=0.04 deadlock=0.00 coll=0.18 ttr=18.6286
+u   5 steps=   40960 sps=  895 r=  0.0626 ent=0.934 kl=0.0097 resolve=0.09 deadlock=0.00 coll=0.12 ttr=17.9647
+u   6 steps=   49152 sps=  893 r=  0.0751 ent=0.869 kl=0.0107 resolve=0.17 deadlock=0.00 coll=0.08 ttr=17.4118
+u   7 steps=   57344 sps=  891 r=  0.1070 ent=0.812 kl=0.0073 resolve=0.30 deadlock=0.00 coll=0.09 ttr=16.0721
+u   8 steps=   65536 sps=  889 r=  0.1165 ent=0.767 kl=0.0025 resolve=0.49 deadlock=0.00 coll=0.20 ttr=14.7919
+u   9 steps=   73728 sps=  887 r=  0.1407 ent=0.718 kl=0.0027 resolve=0.57 deadlock=0.00 coll=0.28 ttr=12.9791
+u  10 steps=   81920 sps=  884 r=  0.1376 ent=0.715 kl=0.0016 resolve=0.56 deadlock=0.00 coll=0.37 ttr=11.25
+u  11 steps=   90112 sps=  883 r=  0.1425 ent=0.703 kl=0.0018 resolve=0.61 deadlock=0.00 coll=0.36 ttr=12.0246
+u  12 steps=   98304 sps=  882 r=  0.1711 ent=0.679 kl=0.0029 resolve=0.64 deadlock=0.00 coll=0.26 ttr=12.7984
+u  13 steps=  106496 sps=  882 r=  0.1804 ent=0.647 kl=0.0038 resolve=0.66 deadlock=0.00 coll=0.14 ttr=14.1394
+u  14 steps=  114688 sps=  883 r=  0.1853 ent=0.568 kl=0.0032 resolve=0.62 deadlock=0.00 coll=0.04 ttr=15.576
+u  15 steps=  122880 sps=  883 r=  0.2126 ent=0.492 kl=0.0021 resolve=0.46 deadlock=0.00 coll=0.02 ttr=16.0065
+u  16 steps=  131072 sps=  884 r=  0.2101 ent=0.437 kl=0.0016 resolve=0.35 deadlock=0.00 coll=0.02 ttr=15.6114
+u  17 steps=  139264 sps=  883 r=  0.2115 ent=0.414 kl=0.0003 resolve=0.40 deadlock=0.00 coll=0.03 ttr=15.5722
+u  18 steps=  147456 sps=  884 r=  0.2204 ent=0.399 kl=0.0007 resolve=0.44 deadlock=0.00 coll=0.04 ttr=16.0705
+u  19 steps=  155648 sps=  884 r=  0.2169 ent=0.355 kl=0.0009 resolve=0.45 deadlock=0.00 coll=0.03 ttr=16.6404
+u  20 steps=  163840 sps=  884 r=  0.2223 ent=0.325 kl=0.0010 resolve=0.41 deadlock=0.00 coll=0.01 ttr=16.6
+u  21 steps=  172032 sps=  884 r=  0.2214 ent=0.296 kl=0.0003 resolve=0.41 deadlock=0.00 coll=0.01 ttr=16.4024
+u  22 steps=  180224 sps=  884 r=  0.2191 ent=0.324 kl=0.0008 resolve=0.48 deadlock=0.00 coll=0.03 ttr=15.7443
+u  23 steps=  188416 sps=  885 r=  0.2184 ent=0.317 kl=0.0006 resolve=0.56 deadlock=0.00 coll=0.03 ttr=15.8053
+u  24 steps=  196608 sps=  884 r=  0.2168 ent=0.301 kl=0.0002 resolve=0.58 deadlock=0.00 coll=0.01 ttr=16.2121
+u  25 steps=  204800 sps=  885 r=  0.2061 ent=0.277 kl=0.0001 resolve=0.51 deadlock=0.00 coll=0.01 ttr=16.6515
+u  26 steps=  212992 sps=  885 r=  0.2018 ent=0.279 kl=0.0002 resolve=0.42 deadlock=0.00 coll=0.02 ttr=16.8119
+u  27 steps=  221184 sps=  885 r=  0.2027 ent=0.283 kl=0.0001 resolve=0.41 deadlock=0.00 coll=0.02 ttr=16.4805
+u  28 steps=  229376 sps=  885 r=  0.2011 ent=0.263 kl=0.0001 resolve=0.40 deadlock=0.00 coll=0.02 ttr=16.6325
+u  29 steps=  237568 sps=  884 r=  0.2005 ent=0.262 kl=0.0001 resolve=0.40 deadlock=0.00 coll=0.01 ttr=17.157
+u  30 steps=  245760 sps=  885 r=  0.1960 ent=0.253 kl=0.0003 resolve=0.41 deadlock=0.00 coll=0.01 ttr=16.9904
+u  31 steps=  253952 sps=  885 r=  0.1917 ent=0.245 kl=0.0001 resolve=0.38 deadlock=0.00 coll=0.01 ttr=16.7263
+u  32 steps=  262144 sps=  885 r=  0.1896 ent=0.263 kl=0.0001 resolve=0.40 deadlock=0.00 coll=0.02 ttr=16.9013
+u  33 steps=  270336 sps=  885 r=  0.1970 ent=0.261 kl=0.0001 resolve=0.43 deadlock=0.00 coll=0.02 ttr=17.1586
+u  34 steps=  278528 sps=  885 r=  0.1832 ent=0.266 kl=0.0001 resolve=0.45 deadlock=0.00 coll=0.03 ttr=17.627
+u  35 steps=  286720 sps=  885 r=  0.1879 ent=0.269 kl=0.0000 resolve=0.43 deadlock=0.00 coll=0.03 ttr=17.5233
+u  36 steps=  294912 sps=  885 r=  0.1967 ent=0.272 kl=0.0000 resolve=0.46 deadlock=0.00 coll=0.02 ttr=16.9802
+
+--------------------------------------------------------------
+device        cuda:0 (NVIDIA GeForce RTX 4080 Laptop GPU), amp torch.bfloat16
+env steps     294912 in 333.8 s
+throughput    883.4 env-steps/s  (rollout 99%, update 1%)
+peak VRAM     0.031 GB allocated / 0.051 GB reserved
+--------------------------------------------------------------
+
+scenario            resolve  deadlock  collide  ttr_mean    jerk
+----------------------------------------------------------------
+offset_large           0.00      0.00     1.00       n/a    1.68
+offset_small           0.68      0.00     0.32     11.96    1.27
+sym_mid_arms12         1.00      0.00     0.00     13.61    0.95
+sym_mid_arms23         0.96      0.00     0.04     13.36    0.98
+sym_slow               1.00      0.00     0.00     13.46    0.97
+sym_fast               1.00      0.00     0.00     13.13    0.53
+offset_reversed        1.00      0.00     0.00     16.02    0.75
+speed_mismatch         0.04      0.00     0.00     14.60    0.41
+----------------------------------------------------------------
+OVERALL                0.71      0.00     0.17     13.69    0.94
+
+=== symmetric  seed 2  300000 steps ===
+cuda: NVIDIA GeForce RTX 4080 Laptop GPU sm_89 11.6GB  amp=bfloat16  envs=64 workers=16
+u   1 steps=    8192 sps=  923 r= -0.0703 ent=1.093 kl=0.0056 resolve=0.03 deadlock=0.00 coll=0.53 ttr=19.6
+u   2 steps=   16384 sps=  910 r= -0.0559 ent=1.071 kl=0.0070 resolve=0.03 deadlock=0.00 coll=0.44 ttr=19.8
+u   3 steps=   24576 sps=  904 r= -0.0306 ent=1.039 kl=0.0058 resolve=0.02 deadlock=0.00 coll=0.30 ttr=19.8
+u   4 steps=   32768 sps=  901 r= -0.0076 ent=0.991 kl=0.0069 resolve=0.01 deadlock=0.00 coll=0.19 ttr=19.6667
+u   5 steps=   40960 sps=  900 r=  0.0247 ent=0.923 kl=0.0086 resolve=0.04 deadlock=0.00 coll=0.15 ttr=19.4571
+u   6 steps=   49152 sps=  899 r=  0.0576 ent=0.838 kl=0.0100 resolve=0.10 deadlock=0.00 coll=0.08 ttr=17.9714
+u   7 steps=   57344 sps=  896 r=  0.0952 ent=0.741 kl=0.0088 resolve=0.19 deadlock=0.00 coll=0.06 ttr=17.7579
+u   8 steps=   65536 sps=  896 r=  0.1190 ent=0.662 kl=0.0058 resolve=0.27 deadlock=0.00 coll=0.05 ttr=16.9444
+u   9 steps=   73728 sps=  896 r=  0.1373 ent=0.607 kl=0.0043 resolve=0.34 deadlock=0.00 coll=0.06 ttr=16.2735
+u  10 steps=   81920 sps=  894 r=  0.1561 ent=0.577 kl=0.0025 resolve=0.41 deadlock=0.00 coll=0.09 ttr=14.6265
+u  11 steps=   90112 sps=  893 r=  0.1547 ent=0.569 kl=0.0007 resolve=0.54 deadlock=0.00 coll=0.17 ttr=12.5204
+u  12 steps=   98304 sps=  892 r=  0.1612 ent=0.580 kl=0.0019 resolve=0.63 deadlock=0.00 coll=0.17 ttr=12.5841
+u  13 steps=  106496 sps=  892 r=  0.1728 ent=0.575 kl=0.0019 resolve=0.69 deadlock=0.00 coll=0.13 ttr=12.8993
+u  14 steps=  114688 sps=  891 r=  0.1866 ent=0.528 kl=0.0024 resolve=0.83 deadlock=0.00 coll=0.04 ttr=13.915
+u  15 steps=  122880 sps=  890 r=  0.2001 ent=0.452 kl=0.0020 resolve=0.94 deadlock=0.00 coll=0.01 ttr=14.3202
+u  16 steps=  131072 sps=  889 r=  0.2064 ent=0.411 kl=0.0016 resolve=0.97 deadlock=0.00 coll=0.01 ttr=13.6913
+u  17 steps=  139264 sps=  888 r=  0.2131 ent=0.365 kl=0.0011 resolve=0.98 deadlock=0.00 coll=0.01 ttr=13.2837
+u  18 steps=  147456 sps=  888 r=  0.2229 ent=0.314 kl=0.0014 resolve=0.99 deadlock=0.00 coll=0.01 ttr=12.9015
+u  19 steps=  155648 sps=  887 r=  0.2300 ent=0.269 kl=0.0009 resolve=1.00 deadlock=0.00 coll=0.00 ttr=12.485
+u  20 steps=  163840 sps=  885 r=  0.2379 ent=0.227 kl=0.0007 resolve=1.00 deadlock=0.00 coll=0.00 ttr=12.025
+u  21 steps=  172032 sps=  884 r=  0.2360 ent=0.199 kl=0.0008 resolve=1.00 deadlock=0.00 coll=0.00 ttr=11.981
+u  22 steps=  180224 sps=  884 r=  0.2378 ent=0.166 kl=0.0007 resolve=1.00 deadlock=0.00 coll=0.00 ttr=12.091
+u  23 steps=  188416 sps=  883 r=  0.2367 ent=0.153 kl=0.0005 resolve=1.00 deadlock=0.00 coll=0.00 ttr=12.358
+u  24 steps=  196608 sps=  882 r=  0.2374 ent=0.142 kl=0.0008 resolve=0.99 deadlock=0.00 coll=0.01 ttr=12.4583
+u  25 steps=  204800 sps=  881 r=  0.2368 ent=0.139 kl=0.0003 resolve=0.99 deadlock=0.00 coll=0.01 ttr=12.4362
+u  26 steps=  212992 sps=  881 r=  0.2391 ent=0.127 kl=0.0004 resolve=1.00 deadlock=0.00 coll=0.00 ttr=12.689
+u  27 steps=  221184 sps=  880 r=  0.2354 ent=0.113 kl=0.0004 resolve=1.00 deadlock=0.00 coll=0.00 ttr=12.683
+u  28 steps=  229376 sps=  880 r=  0.2361 ent=0.121 kl=0.0006 resolve=1.00 deadlock=0.00 coll=0.00 ttr=12.867
+u  29 steps=  237568 sps=  880 r=  0.2304 ent=0.120 kl=0.0010 resolve=0.97 deadlock=0.00 coll=0.01 ttr=13.1672
+u  30 steps=  245760 sps=  879 r=  0.2204 ent=0.126 kl=0.0003 resolve=0.94 deadlock=0.00 coll=0.01 ttr=13.6222
+u  31 steps=  253952 sps=  880 r=  0.2221 ent=0.118 kl=0.0004 resolve=0.87 deadlock=0.00 coll=0.00 ttr=14.4345
+u  32 steps=  262144 sps=  880 r=  0.2159 ent=0.111 kl=0.0003 resolve=0.82 deadlock=0.00 coll=0.00 ttr=14.4793
+u  33 steps=  270336 sps=  881 r=  0.2157 ent=0.099 kl=0.0003 resolve=0.76 deadlock=0.00 coll=0.00 ttr=14.6658
+u  34 steps=  278528 sps=  882 r=  0.2138 ent=0.098 kl=0.0001 resolve=0.67 deadlock=0.00 coll=0.00 ttr=15.1731
+u  35 steps=  286720 sps=  881 r=  0.2159 ent=0.085 kl=0.0001 resolve=0.54 deadlock=0.00 coll=0.00 ttr=15.2593
+u  36 steps=  294912 sps=  882 r=  0.2076 ent=0.078 kl=0.0000 resolve=0.43 deadlock=0.00 coll=0.00 ttr=15.4299
+
+--------------------------------------------------------------
+device        cuda:0 (NVIDIA GeForce RTX 4080 Laptop GPU), amp torch.bfloat16
+env steps     294912 in 335.1 s
+throughput    880.2 env-steps/s  (rollout 99%, update 1%)
+peak VRAM     0.031 GB allocated / 0.051 GB reserved
+--------------------------------------------------------------
+
+scenario            resolve  deadlock  collide  ttr_mean    jerk
+----------------------------------------------------------------
+sym_slow               0.00      0.00     0.00       n/a    0.40
+sym_fast               0.00      0.00     0.00       n/a    0.25
+offset_small           0.00      0.00     0.00       n/a    0.40
+offset_large           1.00      0.00     0.00     20.20    0.62
+speed_mismatch         0.00      0.00     0.00       n/a    0.17
+sym_mid_arms12         0.00      0.00     0.00       n/a    0.40
+sym_mid_arms23         0.00      0.00     0.00       n/a    0.40
+offset_reversed        0.00      0.00     0.00       n/a    0.40
+----------------------------------------------------------------
+OVERALL                0.12      0.00     0.00     20.20    0.38
+
+====================================================================
+metric                       stackelberg     symmetric         delta
+--------------------------------------------------------------------
+deadlock_rate                      0.000         0.000        +0.000
+resolve_rate                       0.777         0.417        +0.360
+collision_rate                     0.183         0.000        +0.183
+time_to_resolve_mean              12.485        17.494        -5.008
+mean_speed                         6.194         5.385        +0.809
+mean_jerk                          1.205         0.532        +0.673
+====================================================================
+wrote results/v2.json
