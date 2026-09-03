@@ -74,7 +74,7 @@ Write down the four things that can happen when both drivers choose at once:
 |                  | **B goes**       | **B yields**   |
 |------------------|------------------|----------------|
 | **A goes**       | crash            | fine: A first  |
-| **A yields**     | fine: B first    | deadlock       |
+| **A yields**     | fine: B first    | neither crosses|
 
 Two of the four cells are fine. Both of the fine ones are *asymmetric* -- they require the
 two cars to choose differently. Both of the bad ones are symmetric -- they happen when the
@@ -83,14 +83,29 @@ two cars choose the same thing.
 That is the whole difficulty. When the two approaches are geometrically identical (same
 distance out, same speed, same road), nothing in the situation distinguishes the two cars,
 so nothing tells them which of the two good cells to aim for. If they reason identically
-they land on the diagonal, and the diagonal is crash or deadlock.
+they land on the diagonal, and the diagonal is crash or non-crossing.
 
-Deadlock is the *safe* failure, which is why it is the one that actually happens. A cautious
-policy has both cars sitting at the line waiting for the other to commit. It is not a crash,
-so it does not look like a safety failure, but a vehicle frozen in a junction blocks
-everything behind it and eventually provokes someone into a dangerous overtake. It is also
-the failure that gets an autonomous vehicle programme cancelled, because it is embarrassing
-and it is visible.
+The non-crossing corner is the *safe* failure, which is why it is the one that actually
+happens. Neither car crashes; neither car gets through. A vehicle that never commits blocks
+everything behind it and eventually provokes someone into a dangerous overtake. It is the
+failure that gets an autonomous vehicle programme cancelled, because it is embarrassing and
+it is visible.
+
+**A note on what that corner actually looks like, because measuring it taught us
+something.** This repo originally called it *deadlock* and defined it strictly: the episode
+timed out *and* the agent was stalled for the final two seconds. That definition turned out
+to be too narrow. Across 12 training runs, learned symmetric policies deadlocked in
+**0.000** of episodes by that test -- not because they crossed, but because they *crept*.
+A policy that inches forward at 0.3 m/s until the clock runs out is not stalled, so it does
+not register as deadlocked, and it also never crosses. The scripted `always-yield` baseline
+does deadlock 1.000 of the time, so the test itself works; a trained policy simply finds a
+different way into the same corner.
+
+So the failure this project is really about is **the timeout**: the episode ending with
+neither car through the junction, whether the car is frozen or crawling. `resolve_rate` is
+the metric that captures it, and it is the one the results are reported against.
+`deadlock_rate` is kept as the narrower stalled-specific diagnostic. See
+[RESULTS.md](RESULTS.md).
 
 Humans clear this in about a second, without speaking. Someone lifts off the brake and rolls
 forward six inches. The other driver sees the roll and holds. The negotiation is conducted
@@ -254,7 +269,7 @@ clipped policy surrogate, clipped value loss, advantage normalisation per miniba
 running value normaliser. Plus GAE, learning-rate annealing, gradient clipping, and bf16
 mixed precision on the update.
 
-### The Stackelberg reward, and why it breaks the deadlock
+### The Stackelberg reward, and the argument for it
 
 This is the core of the project, so it is worth doing slowly.
 
@@ -273,8 +288,10 @@ identically: a penalty for standing still, and an equal penalty for signalling
 that pins exactly this (`test_symmetric_reward_is_permutation_invariant`), because an
 accidental asymmetry hidden in the baseline would confound the whole comparison.
 
-Now here is why that baseline is expected to deadlock, and the argument is about the
-*gradient*, not about the payoff table.
+Now here is why that baseline was *expected* to fail on the diagonal, and the argument is
+about the *gradient*, not about the payoff table. Read this as the hypothesis the
+experiment set out to test, not as a finding -- [RESULTS.md](RESULTS.md) reports what
+actually happened, and it is narrower than this argument predicts.
 
 The actor is one shared network with no identity input. In a geometrically symmetric
 encounter both agents feed it near-identical observations, so both sample from near-identical
@@ -343,7 +360,7 @@ the two variants are scored on the same ruler (`metrics.py`):
 
 | metric | meaning |
 |---|---|
-| `deadlock_rate` | fraction of episodes that timed out *and* had both cars essentially stationary for the last 2 seconds. The stall requirement separates a real standoff from "slow but still moving". |
+| `deadlock_rate` | fraction of episodes that timed out *and* had both cars essentially stationary for the last 2 seconds. The stall requirement separates a real standoff from "slow but still moving" -- which turned out to matter: learned policies creep rather than freeze, so they time out without registering here. Read it alongside `resolve_rate`, not instead of it. |
 | `resolve_rate` | fraction where both cars got through |
 | `collision_rate` | fraction that ended in a crash |
 | `time_to_resolve_mean` / `_p90` | seconds until both cars had cleared, over the episodes that resolved |
@@ -690,7 +707,7 @@ python scripts/run_comparison.py --total-steps 20000 --seeds 0 --tag shakedown
 # more seeds, fewer eval episodes each
 python scripts/run_comparison.py --total-steps 300000 --seeds 0 1 2 3 4 --eval-episodes 15 --tag v1_5seed
 
-# periodic evaluation during training, so you can see when the deadlock breaks
+# periodic evaluation during training, so you can see when the policy starts crossing
 python scripts/run_comparison.py --total-steps 300000 --seeds 0 --eval-every-updates 5 --tag v1_curve
 ```
 
@@ -741,7 +758,7 @@ Under `runs/<run-name>/`:
 | `eval_during_training.jsonl` | only if `--eval-every-updates` was set |
 
 The metrics inside `final_eval.json` and in the rolling window are the ones described in
-[What gets measured](#what-gets-measured): deadlock rate, resolve rate, collision rate,
+[What gets measured](#what-gets-measured): resolve rate, timeout and deadlock rate, collision rate,
 time-to-resolve (mean and p90), mean jerk, mean speed, minimum separation, leader switches.
 
 `run_comparison.py` additionally writes `results/<tag>.json` with both variants side by side
@@ -776,14 +793,15 @@ Scripted reference policies, which need no checkpoint and are useful as anchors 
 metric scale:
 
 ```bash
-python scripts/evaluate.py --policy always-yield   # the pathological standoff: deadlock anchor
+python scripts/evaluate.py --policy always-yield   # the pathological standoff: never-crosses anchor
 python scripts/evaluate.py --policy always-go      # both cars commit: collision anchor
 python scripts/evaluate.py --policy random         # random intents
 ```
 
 `--policy always-yield` is worth running now, before any training, precisely because it is
-the failure mode the whole project is about. It gives the deadlock metric a known
-end-of-scale reading.
+the failure mode the whole project is about. It gives both the resolve and deadlock metrics
+a known end-of-scale reading: it deadlocks 1.000 of the time, which is what proves the
+metric works when a learned policy later reads 0.000.
 
 Other flags:
 
