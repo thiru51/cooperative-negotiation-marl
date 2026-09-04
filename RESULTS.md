@@ -143,10 +143,10 @@ What the Stackelberg shaping buys is therefore **reliability, not peak performan
 That is a narrower claim than the one this project started with, and it is the one the
 data supports.
 
-**The collision cost is real and unresolved.** Every Stackelberg seed collides in 14.5%
-to 23.5% of episodes. The symmetric baseline never collides. Trading an 18% collision
-rate for faster resolution is not a good deal for a driving policy, and it is the first
-thing to fix.
+**The collision cost is real, and v3 shows it does not tune away.** Every Stackelberg
+seed collides in 14.5% to 23.5% of episodes here. Doubling the collision penalty does
+not help (0.198 across six seeds); quadrupling it reaches zero collisions only by
+dropping resolve to 0.102. See the v3 section above.
 
 `leader_switches_mean` was 2.08-2.65 across the Stackelberg runs, so the leader/follower
 signal fired throughout and the comparison is valid.
@@ -183,6 +183,76 @@ read as approximate to about a tenth of a second.
 
 **What is not committed:** the MetaDrive/highway-env episode caches and the optimiser state.
 Neither is needed to re-score a checkpoint.
+
+## v3: is the collision cost tunable away?
+
+v2 left one thing flagged as "the first thing to fix": Stackelberg resolves 0.777 of
+encounters but collides in 18.3% of them, and the symmetric baseline collides in none.
+The obvious question is whether that is just an under-weighted collision term. The
+reward has a `collision` coefficient, default 12.0, so sweep it.
+
+**A prerequisite bug.** The coefficient was unreachable. `run_comparison.py` builds its
+config from CLI flags and never reads `configs/*.yaml`, and no flag exposed the reward
+weights -- so a sweep over `collision` would silently have re-run the identical
+experiment three times, exactly as the first `entropy_coef` sweep did. `REWARD_FIELDS`
+and `--collision-penalty` now exist, and `tests/test_reward_flags.py` pins every
+declared coefficient to a working flag.
+
+### The frontier
+
+Penalties 12 / 24 / 48, both variants, 300,000 steps, `entropy_coef` 0.05. Penalty 24
+was re-run with three further seeds once its first result looked too good, so that row
+is six seeds and the others are three.
+
+| penalty | variant | resolve | collision | time to resolve |
+|---|---|---|---|---|
+| 12 | stackelberg | 0.777 | 0.183 | 12.49 |
+| 12 | symmetric | 0.417 | 0.000 | 17.49 |
+| **24** | stackelberg | 0.586 +-0.202 | 0.198 +-0.163 | 12.10 |
+| **24** | symmetric | 0.562 +-0.438 | 0.000 | 13.44 |
+| 48 | stackelberg | 0.102 | 0.000 | 16.83 |
+| 48 | symmetric | 0.417 | 0.000 | 18.08 |
+
+**The collision cost does not tune away.** Doubling the penalty leaves Stackelberg's
+collision rate where it was -- 0.183 at penalty 12, 0.198 across six seeds at 24. Only
+at penalty 48 does it reach zero, and there resolve collapses to **0.102**: the policy
+buys safety by refusing to cross. There is no setting in this range where the
+Stackelberg reward is both safe and effective.
+
+### A result I nearly reported, and why I did not
+
+The first three seeds at penalty 24 gave symmetric **1.000 resolve with 0.000
+collisions**, on every one of them. Read alone that overturns this project's thesis:
+give the symmetric reward a properly weighted penalty and the asymmetric shaping is not
+merely unnecessary but harmful.
+
+Three more seeds at the same setting returned **0.125, 0.125, 0.125** -- the degenerate
+policy. Per-seed, symmetric at penalty 24 is:
+
+    1.000  1.000  1.000  0.125  0.125  0.125
+
+**Bimodal, with nothing in between.** The first three seeds were one mode of a
+two-mode distribution, and three seeds could not have told the difference. The
+apparent refutation was sampling.
+
+What six seeds actually show is the v2 claim again, with more evidence behind it and at
+a different penalty: **symmetric is bimodal (sd 0.438), Stackelberg is comparatively
+consistent (sd 0.202), and Stackelberg pays for that consistency in collisions.** Mean
+resolve is now nearly identical between the two (0.586 against 0.562), so the honest
+summary is narrower than v2's: what the asymmetric shaping buys is *reliability*, and
+at penalty 24 it no longer buys much mean performance.
+
+### What still is not established
+
+**Six seeds is still few for a bimodal distribution.** Three-and-three is consistent
+with anything from a 30% to a 70% chance of the good mode. Estimating that rate is what
+the next run should do, not another penalty value.
+
+**No mechanism.** Nothing here explains *why* symmetric lands in one mode or the other,
+and the per-seed split is clean enough that something identifiable is probably going on
+early in training. The per-update logs are committed and nobody has looked.
+
+---
 
 ## Honest summary
 

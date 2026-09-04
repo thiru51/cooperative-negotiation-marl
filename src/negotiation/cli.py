@@ -6,6 +6,11 @@ MAPPO_FIELDS = ("num_envs", "horizon", "hidden", "batch_size", "num_minibatches"
                 "epochs", "lr", "entropy_coef", "amp", "compile")
 TRAIN_FIELDS = ("variant", "total_steps", "seed", "device", "num_workers", "out_dir",
                 "run_name", "eval_every_updates", "final_eval_episodes")
+# Reward coefficients reachable from the command line. These live on cfg.reward, not
+# cfg.mappo, and run_comparison.py builds its config from flags rather than from
+# configs/*.yaml -- so a coefficient missing from this tuple is silently unchangeable,
+# which is exactly how the first entropy_coef sweep turned into a no-op.
+REWARD_FIELDS = ("collision", "cleared", "yield_bonus", "assertive")
 
 
 def add_runtime_flags(p: argparse.ArgumentParser) -> None:
@@ -30,6 +35,13 @@ def add_runtime_flags(p: argparse.ArgumentParser) -> None:
     p.add_argument("--entropy-coef", dest="entropy_coef", type=float, default=None,
                    help="entropy bonus weight; raise it if policy entropy collapses "
                         "in the first few updates")
+    p.add_argument("--collision-penalty", dest="collision", type=float, default=None,
+                   help="reward weight on a collision (default 12.0); raising it trades "
+                        "resolve rate for safety")
+    p.add_argument("--cleared-bonus", dest="cleared", type=float, default=None,
+                   help="reward for clearing the junction (default 5.0)")
+    p.add_argument("--yield-bonus", dest="yield_bonus", type=float, default=None)
+    p.add_argument("--assertive-coef", dest="assertive", type=float, default=None)
     p.add_argument("--amp", action=argparse.BooleanOptionalAction, default=None,
                    help="mixed precision in the update (bf16 where supported). On by default")
     p.add_argument("--compile", action="store_true", default=None,
@@ -47,4 +59,8 @@ def apply_flags(cfg, args: argparse.Namespace):
         value = getattr(args, name, None)
         if value is not None:
             setattr(cfg.mappo, name, value)
+    for name in REWARD_FIELDS:
+        value = getattr(args, name, None)
+        if value is not None:
+            setattr(cfg.reward, name, value)
     return cfg
