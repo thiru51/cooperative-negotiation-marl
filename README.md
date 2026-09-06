@@ -16,7 +16,7 @@ Read this before anything else.
 
 - The code is complete and tested. Environment, particle filter, MAPPO, reward variants,
   metrics, evaluation, and the entry-point scripts are all written and all import cleanly.
-- The test suite passes: 55 tests, 8 files.
+- The test suite passes: 63 tests, 9 files.
 - The smoke test passes end to end, including the check that splitting the environments
   across worker processes reproduces the single-process trajectories exactly.
 - **Two experiments have been run.** 12 runs total (2 reward variants x 3 seeds x 2

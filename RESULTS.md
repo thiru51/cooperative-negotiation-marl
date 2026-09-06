@@ -28,10 +28,10 @@ the trained numbers mean nothing.
 | policy | resolve | deadlock | collision | time to resolve | jerk |
 |---|---|---|---|---|---|
 | always-yield | 0.000 | **1.000** | 0.000 | n/a | 0.50 |
-| always-go | 0.120 | 0.000 | **0.880** | 6.80 | 0.90 |
-| random | 0.030 | 0.000 | 0.360 | 19.72 | 16.77 |
+| always-go | 0.125 | 0.000 | **0.875** | 6.80 | 0.90 |
+| random | 0.031 | 0.000 | 0.362 | 19.72 | 16.77 |
 
-Total politeness deadlocks every episode. Total aggression collides in 88% of them. So
+Total politeness deadlocks every episode. Total aggression collides in 87.5% of them. So
 the environment can produce both failure modes, and a useful policy has to beat both.
 
 ## The paired comparison (v1)
