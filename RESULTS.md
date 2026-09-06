@@ -254,6 +254,57 @@ early in training. The per-update logs are committed and nobody has looked.
 
 ---
 
+## Twelve seeds: the v2 claim does not survive at penalty 24
+
+The section above ended by saying six seeds could not pin down how often the symmetric
+reward finds its good mode, and that estimating that rate was what the next run should
+do. Six more seeds were run at penalty 24. Twelve in total:
+
+| | resolve | collision | good mode |
+|---|---|---|---|
+| stackelberg | 0.489 +-0.287 | **0.245** | -- |
+| symmetric | 0.490 +-0.431 | **0.000** | **5/12 (42%)** |
+
+Per-seed resolve:
+
+    stackelberg  0.73 0.50 0.69 0.26 0.88 0.48 0.13 0.78 0.13 0.52 0.00 0.81
+    symmetric    1.00 1.00 1.00 0.13 0.13 0.13 0.13 1.00 0.13 0.13 0.13 1.00
+
+**Mean resolve is now identical -- 0.489 against 0.490 -- and the symmetric reward never
+collides.** On this evidence, at this penalty, the symmetric baseline is simply better:
+the same success rate for none of the collisions.
+
+### What that does to the v2 claim
+
+v2 concluded that asymmetric shaping buys **reliability**, trading a worse collision rate
+for consistency across seeds. At penalty 12 with three seeds that was what the data said.
+At penalty 24 with twelve seeds it is much weaker:
+
+- The consistency gap narrowed. Stackelberg's sd is 0.287 against symmetric's 0.431 --
+  still lower, but Stackelberg now has a **0.00 seed** and two at 0.13. It is not
+  reliable; it is merely less bimodal.
+- The cost did not narrow. 24.5% collisions against zero.
+- And the mean advantage that justified the trade has gone entirely.
+
+So the claim has to be narrowed again, and this is the third time this project's premise
+has moved under measurement: the deadlock premise did not reproduce, the collision cost
+did not tune away, and now the reliability advantage does not survive twelve seeds at a
+higher penalty.
+
+**What is still true:** the symmetric reward is genuinely bimodal, landing in a perfect
+policy (1.000 resolve, 0.000 collisions) in **42% of seeds** and a degenerate one (0.125)
+in the rest, with nothing between. That bimodality is real, reproducible and the most
+interesting thing here. A practitioner would take the symmetric reward and restart it
+until it lands -- which costs three runs on average and beats anything the Stackelberg
+shaping produced.
+
+**What would be worth doing:** the per-update logs for all twelve seeds are committed and
+nobody has looked at them. The split is clean enough that something identifiable almost
+certainly happens early in training, and predicting the mode from the first few updates
+would be worth more than another reward variant.
+
+---
+
 ## Honest summary
 
 **v1 (`entropy_coef` 0.02).** Neither variant learns to resolve reliably. Entropy
