@@ -19,10 +19,16 @@ Read this before anything else.
 - The test suite passes: 63 tests, 9 files.
 - The smoke test passes end to end, including the check that splitting the environments
   across worker processes reproduces the single-process trajectories exactly.
-- **Two experiments have been run.** 12 runs total (2 reward variants x 3 seeds x 2
+- **Latest result: twelve seeds at collision penalty 24.** Mean resolve is **0.489** for
+  the Stackelberg reward against **0.490** for the symmetric baseline, and Stackelberg
+  collides in **24.5%** of episodes while the symmetric baseline never collides. The v2
+  "reliability" claim below does not survive twelve seeds. What does hold up: the symmetric
+  reward is bimodal, landing in a perfect policy in 5 of 12 seeds (42%) and a degenerate
+  one in the rest. See [Twelve seeds](RESULTS.md#twelve-seeds-the-v2-claim-does-not-survive-at-penalty-24).
+- **Earlier experiments (v1, v2).** 12 runs total (2 reward variants x 3 seeds x 2
   exploration settings), 300,000 steps each, on an RTX 4080 Laptop at ~880 env-steps/s.
   Full write-up in [RESULTS.md](RESULTS.md); raw output in `results/`.
-- **Headline (v2, `entropy_coef` 0.05).** The Stackelberg reward resolves **0.777** of
+- **v2 headline, since superseded (`entropy_coef` 0.05).** The Stackelberg reward resolves **0.777** of
   evaluation episodes against **0.417** for the symmetric baseline, and resolves 5 s
   faster. Crucially it is *consistent*: per-seed 0.855 / 0.765 / 0.710. The symmetric
   baseline is bimodal -- two seeds collapse to a degenerate 0.125 policy, one seed reaches

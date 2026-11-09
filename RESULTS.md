@@ -317,6 +317,10 @@ faster. It pays for this with an 18.3% collision rate that the symmetric baselin
 not have. The symmetric baseline is bimodal and its best seed (1.000 resolve, 0.000
 collisions) beats every Stackelberg seed.
 
+**Twelve seeds (collision penalty 24).** Mean resolve is 0.489 for Stackelberg against
+0.490 for symmetric. Stackelberg collides in 24.5% of episodes; symmetric never does. The
+v2 consistency advantage does not survive: Stackelberg now has a 0.00 seed and two at 0.13.
+
 **The original premise remains unsupported.** This project was built on the claim that a
 symmetric reward collapses into wait-wait deadlock and Stackelberg shaping breaks it. The
 symmetric baseline deadlocked in **0.000** of episodes in both v1 and v2. The scripted
@@ -324,7 +328,8 @@ symmetric baseline deadlocked in **0.000** of episodes in both v1 and v2. The sc
 work -- a *learned* symmetric policy simply does not go there. It creeps to the timeout
 instead, which dodges the strict deadlock test (stalled for the final two seconds).
 
-The defensible claim from this data is: **Stackelberg-style asymmetric shaping makes
-negotiation outcomes consistent across seeds where a symmetric reward is bimodal, at the
-cost of a materially worse collision rate.** The deadlock claim needs either restating in
-terms of timeouts, or dropping.
+The defensible claim from this data is: **at twelve seeds, Stackelberg-style asymmetric
+shaping does not improve on a symmetric reward. It matches the symmetric mean resolve rate
+and adds a 24.5% collision rate. The symmetric reward is bimodal, reaching a perfect policy
+in 42% of seeds, and predicting which mode a run lands in is the open question.** The
+deadlock claim needs either restating in terms of timeouts, or dropping.
